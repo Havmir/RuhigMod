@@ -20,7 +20,7 @@ Rhode || Hotshot Defender
 
 Scarlet?
 
-Shookah
+Shockah
 
 Soggoru Waffle
 

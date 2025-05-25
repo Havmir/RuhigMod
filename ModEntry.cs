@@ -42,20 +42,25 @@ internal class ModEntry : SimpleMod
     ];
     private static List<Type> RuhigUncommonCardTypes = [
         typeof(RushAttack),
-        typeof(RepairGambit),
         typeof(ScrapeForIdeas),
         typeof(OverCharge),
         // typeof(FiftyFifty), ~ scrapped for being unbalenced ~ Havmir
         typeof(Stall),
         typeof(RuhigGift),
         typeof(HardNuetralReset),
+        typeof(Fix),
     ];
     private static List<Type> RuhigRareCardTypes = [
-        typeof(ComboSetUp),
+        // typeof(ComboSetUp), ~ scraped for lack of appeal ~ Havmir
         typeof(RuhigsSoulShot),
         typeof(Support),
-        typeof(RushDown),
-        typeof(RuhigsChallenge)
+        // typeof(RushDown), ~ scraped per many people's request - Havmir
+        typeof(RuhigsChallenge),
+        // typeof(RuhigsAura), ~ tried and felt bad when it didn't line up ... so it was scraped ~ Havmir
+        typeof(RepairGambit),
+        // typeof(RuhigsCycleMaster),
+        typeof(ExpandHull),
+
     ];
     private static List<Type> RuhigSpecialCardTypes = [
         typeof(NeedForSpeed),
@@ -154,12 +159,15 @@ internal class ModEntry : SimpleMod
         });
         
         _ = new HullLostManager(); // exists, just for the Ruhig's Challenge Card
+        _ = new ShuffleManager();
         
         RuhigsAdaptability.RuhigsAdaptabilitySprite = RegisterSprite(package, "assets/RuhigsAdaptabilitySprite.png").Sprite;
         SelfDestruct.SelfDestructSprite = RegisterSprite(package, "assets/SelfDestructSprite.png").Sprite;
-        RuhigSupport.RuhigSupportSprite = RegisterSprite(package, "assets/RuhigSupportCardDraw.png").Sprite;
-        RuhigSupportA.RuhigSupportASprite = RegisterSprite(package, "assets/RuhigSupportCardDrawA.png").Sprite;
-        RuhigSupportB.RuhigSupportBSprite = RegisterSprite(package, "assets/RuhigSupportCardDrawB.png").Sprite;
+        RuhigSupport.RuhigSupportSprite = RegisterSprite(package, "assets/RuhigSupportIcon.png").Sprite;
+        RuhigSupportA.RuhigSupportASprite = RegisterSprite(package, "assets/RuhigSupportIconA.png").Sprite;
+        RuhigSupportB.RuhigSupportBSprite = RegisterSprite(package, "assets/RuhigSupportIconB.png").Sprite;
+        InvisableRuhigSupport.InvisableRuhigSupportSprite = RegisterSprite(package, "assets/blank.png").Sprite;
+        RuhigSupportDouble.RuhigSupportDoubleSprite = RegisterSprite(package, "assets/RuhigSupportIconDouble.png").Sprite;
         
     }
     
