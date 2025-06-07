@@ -1,0 +1,9 @@
+C:\Users\Ike\Downloads\demomod-master\demomod-master\obj\Debug\net8.0\DemoMod.csproj.AssemblyReference.cache
+C:\Users\Ike\Downloads\demomod-master\demomod-master\obj\Debug\net8.0\DemoMod.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ike\Downloads\demomod-master\demomod-master\obj\Debug\net8.0\DemoMod.AssemblyInfoInputs.cache
+C:\Users\Ike\Downloads\demomod-master\demomod-master\obj\Debug\net8.0\DemoMod.AssemblyInfo.cs
+C:\Users\Ike\Downloads\demomod-master\demomod-master\obj\Debug\net8.0\DemoMod.csproj.CoreCompileInputs.cache
+C:\Users\Ike\Downloads\demomod-master\demomod-master\bin\Debug\net8.0\DemoMod.dll.config
+C:\Users\Ike\Downloads\demomod-master\demomod-master\bin\Debug\net8.0\DemoMod.deps.json
+C:\Users\Ike\Downloads\demomod-master\demomod-master\bin\Debug\net8.0\DemoMod.dll
+C:\Users\Ike\Downloads\demomod-master\demomod-master\obj\Debug\net8.0\DemoMod.dll

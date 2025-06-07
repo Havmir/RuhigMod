@@ -1,0 +1,9 @@
+C:\Users\Ike\Downloads\RuhigMod\demomod-master\bin\Release\net8.0\RuhigMod.dll.config
+C:\Users\Ike\Downloads\RuhigMod\demomod-master\bin\Release\net8.0\RuhigMod.deps.json
+C:\Users\Ike\Downloads\RuhigMod\demomod-master\bin\Release\net8.0\RuhigMod.dll
+C:\Users\Ike\Downloads\RuhigMod\demomod-master\obj\Release\net8.0\RuhigMod.csproj.AssemblyReference.cache
+C:\Users\Ike\Downloads\RuhigMod\demomod-master\obj\Release\net8.0\RuhigMod.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ike\Downloads\RuhigMod\demomod-master\obj\Release\net8.0\RuhigMod.AssemblyInfoInputs.cache
+C:\Users\Ike\Downloads\RuhigMod\demomod-master\obj\Release\net8.0\RuhigMod.AssemblyInfo.cs
+C:\Users\Ike\Downloads\RuhigMod\demomod-master\obj\Release\net8.0\RuhigMod.csproj.CoreCompileInputs.cache
+C:\Users\Ike\Downloads\RuhigMod\demomod-master\obj\Release\net8.0\RuhigMod.dll
