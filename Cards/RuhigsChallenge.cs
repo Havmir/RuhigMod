@@ -88,7 +88,7 @@ public class RuhigsChallenge : Card, IRegisterable
         new AAttack()
         {
           damage = GetDmg(s, DamageAmount())
-        }
+        },
       ]
     };
   }

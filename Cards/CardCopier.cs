@@ -35,7 +35,7 @@ public class CardCopier : Card, IRegisterable
     }
     public override List<CardAction> GetActions(State s, Combat c)
     {
-        return upgrade switch 
+        return upgrade switch
         {
             Upgrade.None => [
                 new AHurt()

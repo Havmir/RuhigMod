@@ -2,14 +2,11 @@
 using System.Reflection;
 using Nanoray.PluginManager;
 using Nickel;
-using RuhigMod.External;
 
 namespace RuhigMod.Cards; 
 
 public class ColorlessRuhigSummon : Card, IRegisterable /* name of card needs to go first purple */
 {
-
-    private static IKokoroApi.IV2.IConditionalApi Conditional => ModEntry.Instance.KokoroApi.Conditional; 
 
     public static void
         Register(IPluginPackage<IModManifest> package,
@@ -40,7 +37,7 @@ public class ColorlessRuhigSummon : Card, IRegisterable /* name of card needs to
                     amount = 2,
                     limitDeck = ModEntry.Instance.RuhigDeck.Deck,
                     makeAllCardsTemporary = true,
-                    overrideUpgradeChances = new bool?(false),
+                    overrideUpgradeChances = false,
                     canSkip = false,
                     inCombat = true,
                     discount = -1
@@ -52,7 +49,7 @@ public class ColorlessRuhigSummon : Card, IRegisterable /* name of card needs to
                     amount = 3,
                     limitDeck = ModEntry.Instance.RuhigDeck.Deck,
                     makeAllCardsTemporary = true,
-                    overrideUpgradeChances = new bool?(false),
+                    overrideUpgradeChances = false,
                     canSkip = false,
                     inCombat = true,
                     discount = -1
@@ -62,9 +59,9 @@ public class ColorlessRuhigSummon : Card, IRegisterable /* name of card needs to
                 new ACardOffering()
                 {
                     amount = 2,
-                    limitDeck = new Deck?(ModEntry.Instance.RuhigDeck.Deck),
+                    limitDeck = ModEntry.Instance.RuhigDeck.Deck,
                     makeAllCardsTemporary = true,
-                    overrideUpgradeChances = new bool?(false),
+                    overrideUpgradeChances = false,
                     canSkip = false,
                     inCombat = true,
                     discount = -1

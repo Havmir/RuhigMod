@@ -56,7 +56,7 @@ public class RuhigsSoulShot : Card, IRegisterable /* name of card needs to go fi
                 },
                 new AAttack()
                 {
-                    damage = GetDmg(s, GetMissingHealth(s)),
+                    damage = GetDmg(s, GetMissingHealthB(s)),
                 },
                 new AStatus()
                 {
@@ -83,7 +83,7 @@ public class RuhigsSoulShot : Card, IRegisterable /* name of card needs to go fi
                 },
                 new AAttack()
                 {
-                    damage = this.GetDmg(s, this.GetMissingHealth(s)), /* 447 */
+                    damage = GetDmg(s, GetMissingHealth(s)), /* 447 */
                     onKillActions = new List<CardAction>()
                     {
                         new AHullMax()
@@ -106,6 +106,11 @@ public class RuhigsSoulShot : Card, IRegisterable /* name of card needs to go fi
     {
         return s.ship.hullMax - s.ship.hull +1; /* This makes typing in "GetMissingHealth(s)" for damage, the actual damage for your missing health 447 */
     }
+    
+    public int GetMissingHealthB(State s)
+    {
+        return s.ship.hullMax - 1; // due to Cobalt Core doing calculations before effects happen, this is needed to get the actual damage value when a card is played.
+    }
 
     public override CardData GetData(State state) /* Card Properties Go Here */
     {
@@ -115,7 +120,7 @@ public class RuhigsSoulShot : Card, IRegisterable /* name of card needs to go fi
             {
                 cost = 3, 
                 exhaust = false,
-                description = "Lose 1 Hull. Attack = Missing Hull",
+                description = "<c=damage>Lose 1 Hull.</c> Attack = Missing Hull.",
                 artTint = "6868b9"
             };
         }
@@ -125,7 +130,7 @@ public class RuhigsSoulShot : Card, IRegisterable /* name of card needs to go fi
             {
                 cost = 2,
                 exhaust = false,
-                description = "Set Hull = 1 & Attack = Missing Hull. <c=damage>Remove serenity & add 99 heat.</c>",
+                description = "<c=damage>Set Hull = 1.</c> Attack = Missing Hull. <c=damage>Remove serenity & add 99 heat.</c>",
                 artTint = "6868b9"
             };
         }
@@ -135,7 +140,7 @@ public class RuhigsSoulShot : Card, IRegisterable /* name of card needs to go fi
             {
                 cost = 3,
                 exhaust = false,
-                description = "Lose 1 Hull & Attack = Missing Hull. <c=heal>If kills, +2 max hull & heal 2.</c>",
+                description = "<c=damage>Lose 1 Hull.</c> Attack = Missing Hull. <c=heal>If kills, +2 max hull & heal 2.</c>",
                 artTint = "6868b9"
             };
         }

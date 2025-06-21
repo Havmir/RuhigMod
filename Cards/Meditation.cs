@@ -51,11 +51,11 @@ public class Meditation : Card, IRegisterable
             Upgrade.A => [
                 new ADiscard()
                 {   
-                    count = 2
+                    count = 3
                 },
                 new ADrawCard()
                 {
-                    count = 3
+                    count = 4
                 },
             ],
             Upgrade.B => [
@@ -87,7 +87,7 @@ public class Meditation : Card, IRegisterable
         {
             return new CardData()
             {
-                cost = 0,
+                cost = 1,
                 artTint = "6868b9",
             };
         }
@@ -95,11 +95,8 @@ public class Meditation : Card, IRegisterable
         {
             return new CardData()
             {
-                cost = 1,
+                cost = 0,
                 artTint = "6868b9",
-                buoyant = true,
-                exhaust = true,
-                retain = true
             };
         }
         return default;

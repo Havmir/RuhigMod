@@ -54,9 +54,7 @@ public class PowerUpShot : Card, IRegisterable /* name of card needs to go first
                 new AAttack()
                 {
                     piercing = true,
-                    isBeam = true,
-                    targetPlayer = true,
-                    damage = 1
+                    damage = GetDmg(s, 1)
                 },
                 new AStatus()
                 {
@@ -74,9 +72,7 @@ public class PowerUpShot : Card, IRegisterable /* name of card needs to go first
                 new AAttack()
                 {
                     piercing = true,
-                    isBeam = true,
-                    targetPlayer = true,
-                    damage = 1
+                    damage = GetDmg(s, 1)
                 },
                 new AStatus()
                 {
@@ -94,9 +90,7 @@ public class PowerUpShot : Card, IRegisterable /* name of card needs to go first
                 new AAttack()
                 {
                     piercing = true,
-                    isBeam = true,
-                    targetPlayer = true,
-                    damage = 1,
+                    damage = GetDmg(s, 1),
                     stunEnemy = true
                 },
                 new AStatus()
