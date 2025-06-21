@@ -1,8 +1,8 @@
 {
   "UniqueName": "havmir.RuhigMod",
   "Version": "0.2.1",
-  "Author": "havmir",
-  "Description": "A mod demonstrating the basics of modding Cobalt Core.",
+  "Author": "Havmir",
+  "Description": "Havmir's first Cobalt Core Mod",
   "RequiredApiVersion": "1.5.7",
   "EntryPointAssembly": "RuhigMod.dll",
   "LoadPhase": "AfterDbInit",
