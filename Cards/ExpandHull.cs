@@ -4,14 +4,11 @@ using System.Reflection;
 using Nanoray.PluginManager;
 using Nickel;
 using RuhigMod.Actions;
-using RuhigMod.External;
 
 namespace RuhigMod.Cards; 
 
 public class ExpandHull : Card, IRegisterable
 {
-
-    private static IKokoroApi.IV2.IConditionalApi Conditional => ModEntry.Instance.KokoroApi.Conditional;
     
     
     public static void
@@ -57,7 +54,8 @@ public class ExpandHull : Card, IRegisterable
                 new RuhigSupport()
                 {
                     ExtraHullCard = true,
-                    IsTempQuestionMark = ModEntry.Instance.Helper.Content.Cards.IsCardTraitActive(s, this, ModEntry.Instance.Helper.Content.Cards.TemporaryCardTrait )
+                    IsTempQuestionMark = ModEntry.Instance.Helper.Content.Cards.IsCardTraitActive(s, this, ModEntry.Instance.Helper.Content.Cards.TemporaryCardTrait ),
+                    dialogueSelector = ".ExpandHull"
                 }
             ],
             Upgrade.B => [
@@ -69,7 +67,8 @@ public class ExpandHull : Card, IRegisterable
                 new RuhigSupport()
                 {
                     ExtraHullCard = false,
-                    IsTempQuestionMark = true
+                    IsTempQuestionMark = true,
+                    dialogueSelector = ".ExpandHull"
                 }
             ],
             Upgrade.None => [
@@ -86,9 +85,11 @@ public class ExpandHull : Card, IRegisterable
                 new RuhigSupport()
                 {
                     ExtraHullCard = true,
-                    IsTempQuestionMark = ModEntry.Instance.Helper.Content.Cards.IsCardTraitActive(s, this, ModEntry.Instance.Helper.Content.Cards.TemporaryCardTrait )
+                    IsTempQuestionMark = ModEntry.Instance.Helper.Content.Cards.IsCardTraitActive(s, this, ModEntry.Instance.Helper.Content.Cards.TemporaryCardTrait ),
+                    dialogueSelector = ".ExpandHull"
                 }
-            ]
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 

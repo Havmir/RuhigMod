@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Reflection;
 using Nanoray.PluginManager;
 using Nickel;
-using RuhigMod.External;
 
 namespace RuhigMod.Cards; 
 
 public class DisposableHull : Card, IRegisterable
 {
-
-    private static IKokoroApi.IV2.IConditionalApi Conditional => ModEntry.Instance.KokoroApi.Conditional; 
+    
     public static Spr DisposableHullB;
     
     public static void
@@ -37,7 +35,6 @@ public class DisposableHull : Card, IRegisterable
     }
         public override List<CardAction> GetActions(State s, Combat c)
         {
-            int x;
             return upgrade switch 
         {
             Upgrade.None => [
@@ -54,7 +51,8 @@ public class DisposableHull : Card, IRegisterable
                 new ASpawn()
                 {
                     thing = new Asteroid(),
-                    offset = 0
+                    offset = 0,
+                    dialogueSelector = ".DisposableHull"
                 },
             ],
             Upgrade.A => [
@@ -81,7 +79,8 @@ public class DisposableHull : Card, IRegisterable
                 new ASpawn()
                 {
                     thing = new Asteroid(),
-                    offset = 1
+                    offset = 1,
+                    dialogueSelector = ".DisposableHull"
                 },
             ],
             Upgrade.B => [
@@ -104,9 +103,11 @@ public class DisposableHull : Card, IRegisterable
                     {
                         bubbleShield = true
                     },
-                    offset = 0
+                    offset = 0,
+                    dialogueSelector = ".DisposableHull"
                 },
-            ]
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
         }
 

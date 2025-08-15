@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using RuhigMod.Features;
@@ -69,7 +70,8 @@ public class RuhigsCycleMaster : Card, IRegisterable
         {
           damage = GetDmg(s, ShuffleManagerNumber(c))
         }
-      ]
+      ],
+      _ => throw new ArgumentOutOfRangeException()
     };
   }
 
@@ -130,7 +132,6 @@ public class RuhigsCycleMaster : Card, IRegisterable
     {
       CardData data = new CardData();
       data.cost = 3;
-      if (state.route is Combat route1);
       object[] objArray = new object[3]
       {
         $"{_x}",

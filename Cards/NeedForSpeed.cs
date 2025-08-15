@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Reflection;
 using Nanoray.PluginManager;
 using Nickel;
-using RuhigMod.External;
+using RuhigMod.Features;
 
 namespace RuhigMod.Cards; 
 
 public class NeedForSpeed : Card, IRegisterable
 {
 
-    private static IKokoroApi.IV2.IConditionalApi Conditional => ModEntry.Instance.KokoroApi.Conditional; 
 
     public static void
         Register(IPluginPackage<IModManifest> package,
@@ -37,50 +36,30 @@ public class NeedForSpeed : Card, IRegisterable
         return upgrade switch 
         {
             Upgrade.None => [
-                new AHurt()
+                new AStatus
                 {
                     targetPlayer = true,
-                    hurtAmount = 1 
-                },
-                new AStatus()
-                {
-                    targetPlayer = true,
-                    status = Status.evade,
-                    statusAmount = 4
-                },
+                    status = RuhigSupportStatusesManager.NeedForSpeed.Status,
+                    statusAmount = 1
+                }
             ],
             Upgrade.A => [
-                new AHurt()
+                new AStatus
                 {
                     targetPlayer = true,
-                    hurtAmount = 1 
-                },
-                new AStatus()
-                {
-                    targetPlayer = true,
-                    status = Status.evade,
-                    statusAmount = 4
-                },
+                    status = RuhigSupportStatusesManager.NeedForSpeed.Status,
+                    statusAmount = 1
+                }
             ],
             Upgrade.B => [
-                new AHurt()
+                new AStatus
                 {
                     targetPlayer = true,
-                    hurtAmount = 1 
-                },
-                new AStatus()
-                {
-                    targetPlayer = true,
-                    status = Status.evade,
-                    statusAmount = 4
-                },
-                new AStatus()
-                {
-                    targetPlayer = true,
-                    status = Status.loseEvadeNextTurn,
-                    statusAmount = 1
-                },
-            ]
+                    status = RuhigSupportStatusesManager.NeedForSpeed.Status,
+                    statusAmount = 2
+                }
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 
@@ -88,27 +67,27 @@ public class NeedForSpeed : Card, IRegisterable
     {
         if (upgrade == Upgrade.None) 
         {
-            return new CardData()
+            return new CardData
             {
-                cost = 2, 
+                cost = 1, 
                 exhaust = true,
                 artTint = "6868b9"
             };
         }
         if (upgrade == Upgrade.A)
         {
-            return new CardData()
+            return new CardData
             {
-                cost = 1,
+                cost = 0,
                 exhaust = true,
                 artTint = "6868b9"
             };
         }
         if (upgrade == Upgrade.B)
         {
-            return new CardData()
+            return new CardData
             {
-                cost = 0,
+                cost = 1,
                 exhaust = true,
                 artTint = "6868b9"
             };

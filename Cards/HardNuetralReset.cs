@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Reflection;
 using Nanoray.PluginManager;
 using Nickel;
-using RuhigMod.External;
 
 namespace RuhigMod.Cards; 
 
 public class HardNuetralReset : Card, IRegisterable
 {
-
-    private static IKokoroApi.IV2.IConditionalApi Conditional => ModEntry.Instance.KokoroApi.Conditional; 
 
     public static void
         Register(IPluginPackage<IModManifest> package,
@@ -49,7 +45,8 @@ public class HardNuetralReset : Card, IRegisterable
                 },
                 new ADrawCard()
                 {
-                count = 10
+                count = 10,
+                dialogueSelector = ".HardNuetralReset"
                 }
             ],
             Upgrade.A => [
@@ -64,7 +61,8 @@ public class HardNuetralReset : Card, IRegisterable
                 },
                 new ADrawCard()
                 {
-                    count = 10
+                    count = 10,
+                    dialogueSelector = ".HardNuetralReset"
                 }
             ],
             Upgrade.B => [
@@ -74,9 +72,11 @@ public class HardNuetralReset : Card, IRegisterable
                 },
                 new ADrawCard()
                 {
-                    count = 10
+                    count = 10,
+                    dialogueSelector = ".HardNuetralReset"
                 }
-            ]
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 

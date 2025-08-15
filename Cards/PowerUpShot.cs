@@ -3,18 +3,11 @@ using System.Collections.Generic;
 using System.Reflection;
 using Nanoray.PluginManager;
 using Nickel;
-using RuhigMod.Actions;
-using RuhigMod.External;
 
 namespace RuhigMod.Cards; 
 
 public class PowerUpShot : Card, IRegisterable /* name of card needs to go first purple */
 {
-
-    private static IKokoroApi.IV2.IConditionalApi Conditional => ModEntry.Instance.KokoroApi.Conditional;
-
-
-    
 
     
     public static void
@@ -32,7 +25,7 @@ public class PowerUpShot : Card, IRegisterable /* name of card needs to go first
             {
                 deck = ModEntry.Instance.RuhigDeck
                     .Deck, 
-                rarity = Rarity.common, 
+                rarity = Rarity.uncommon, 
                 dontOffer = false, 
                 upgradesTo = [Upgrade.A, Upgrade.B],
             },
@@ -99,7 +92,8 @@ public class PowerUpShot : Card, IRegisterable /* name of card needs to go first
                     statusAmount = 1,
                     targetPlayer = true
                 }
-            ]
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 

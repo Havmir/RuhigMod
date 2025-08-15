@@ -131,7 +131,8 @@ public class FiftyFifty : Card, IRegisterable
                     stunEnemy = true,
                     disabled = !flipped
                 }
-            ]
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 

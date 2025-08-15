@@ -83,7 +83,8 @@ public class DeepBreath : Card, IRegisterable
                     statusAmount = 1,
                     targetPlayer = true
                 },
-            ]
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 

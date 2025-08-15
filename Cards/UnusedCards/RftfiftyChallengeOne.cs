@@ -55,7 +55,8 @@ public class RftfiftyChallengeOne : Card, IRegisterable /* name of card needs to
                 {
                     count = 3
                 },
-            ]
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 

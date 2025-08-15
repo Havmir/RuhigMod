@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Reflection;
 using Nanoray.PluginManager;
 using Nickel;
-using RuhigMod.External;
+using RuhigMod.Features;
 
 namespace RuhigMod.Cards; 
 
 public class DraconicScales : Card, IRegisterable /* name of card needs to go first purple */
 {
-
-    private static IKokoroApi.IV2.IConditionalApi Conditional => ModEntry.Instance.KokoroApi.Conditional; 
 
     public static void
         Register(IPluginPackage<IModManifest> package,
@@ -37,56 +35,30 @@ public class DraconicScales : Card, IRegisterable /* name of card needs to go fi
         return upgrade switch 
         {
             Upgrade.A => [
-                new AHurt()
-                {
-                    hurtAmount = 1,
-                    targetPlayer = true
-                },
-                new AStatus()
+                new AStatus
                 {
                     targetPlayer = true,
-                    status = Status.maxShield,
-                    statusAmount = 2
-                },
-                new AStatus()
-                {
-                    status = Status.shield,
-                    statusAmount = 1,
-                    targetPlayer = true
-                },
+                    status = RuhigSupportStatusesManager.DraconicScales.Status,
+                    statusAmount = 1
+                }
             ],
             Upgrade.B => [
-                new AHurt()
-                {
-                    hurtAmount = 1,
-                    targetPlayer = true
-                },
-                new AStatus()
+                new AStatus
                 {
                     targetPlayer = true,
-                    status = Status.maxShield,
-                    statusAmount = 3
-                },
+                    status = RuhigSupportStatusesManager.DraconicScalesB.Status,
+                    statusAmount = 1
+                }
             ],
             Upgrade.None => [
-                new AHurt()
+                new AStatus
                 {
-                hurtAmount = 1,
-                targetPlayer = true
-                },
-                new AStatus()
-                {
-                targetPlayer = true,
-                    status = Status.maxShield,
-                    statusAmount = 2
-                },
-                new AStatus()
-                {
-                    status = Status.shield,
-                    statusAmount = 1,
-                    targetPlayer = true
-                },
-            ]
+                    targetPlayer = true,
+                    status = RuhigSupportStatusesManager.DraconicScales.Status,
+                    statusAmount = 1
+                }
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 

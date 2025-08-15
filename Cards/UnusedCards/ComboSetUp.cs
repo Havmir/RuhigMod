@@ -100,7 +100,8 @@ public class ComboSetUp : Card, IRegisterable
                     targetPlayer = true
                 },
                 new AEndTurn()
-            ]
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 

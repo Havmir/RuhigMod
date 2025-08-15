@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Reflection;
 using Nanoray.PluginManager;
 using Nickel;
-using RuhigMod.External;
 
 namespace RuhigMod.Cards; 
 
 public class RuhigsSoulShot : Card, IRegisterable /* name of card needs to go first purple */
 {
-
-    private static IKokoroApi.IV2.IConditionalApi Conditional => ModEntry.Instance.KokoroApi.Conditional; 
 
     public static void
         Register(IPluginPackage<IModManifest> package,
@@ -46,6 +42,7 @@ public class RuhigsSoulShot : Card, IRegisterable /* name of card needs to go fi
                 new AAttack()
                 {
                 damage = GetDmg(s, GetMissingHealth(s)),
+                dialogueSelector = ".SoulShot"
                 }
             ],
             Upgrade.B => [
@@ -56,7 +53,7 @@ public class RuhigsSoulShot : Card, IRegisterable /* name of card needs to go fi
                 },
                 new AAttack()
                 {
-                    damage = GetDmg(s, GetMissingHealthB(s)),
+                    damage = GetDmg(s, GetMissingHealthB(s))
                 },
                 new AStatus()
                 {
@@ -72,7 +69,8 @@ public class RuhigsSoulShot : Card, IRegisterable /* name of card needs to go fi
                     statusAmount = 99,
                     mode = AStatusMode.Set,
                     /* omitFromTooltips = true */
-                    targetPlayer = true
+                    targetPlayer = true,
+                    dialogueSelector = ".SoulShot"
                 },
             ],
             Upgrade.A => [
@@ -95,10 +93,12 @@ public class RuhigsSoulShot : Card, IRegisterable /* name of card needs to go fi
                         {
                         healAmount = 2,
                         targetPlayer = true
-                    }
-                    }
+                        }
+                    },
+                    dialogueSelector = ".SoulShot"
                 }
-            ]
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 

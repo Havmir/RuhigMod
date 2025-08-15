@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Reflection;
 using Nanoray.PluginManager;
 using Nickel;
-using RuhigMod.External;
+using RuhigMod.Features;
 
 namespace RuhigMod.Cards; 
 
 public class PaitenceWrath : Card, IRegisterable
 {
-
-    private static IKokoroApi.IV2.IConditionalApi Conditional => ModEntry.Instance.KokoroApi.Conditional; 
+    
     public static Spr EuinceTop;
     public static Spr EuinceBottom;
     public static void
@@ -41,92 +40,69 @@ public class PaitenceWrath : Card, IRegisterable
         return upgrade switch 
         {
             Upgrade.None => [
-                new AHurt()
-                {   
-                    disabled = flipped,
-                    targetPlayer = true,
-                    hurtAmount = 1 
-                },
-                new AStatus()
+                new ADummyAction(),
+                new AStatus
                 {
-                    status = Status.serenity,
+                    status = RuhigSupportStatusesManager.Paitence.Status,
                     disabled = flipped, 
-                    statusAmount = 3,
-                    targetPlayer = true
+                    statusAmount = 1,
+                    targetPlayer = true,
                 },
                 new ADummyAction(),
-                new AHurt()
-                {   
-                    disabled = !flipped,
-                    targetPlayer = true,
-                    hurtAmount = 1 
-                },
-                new AStatus()
+                new AStatus
                 {
                     status = Status.heat,
                     disabled = !flipped, 
                     statusAmount = 10,
-                    targetPlayer = true
-                }
+                    targetPlayer = true,
+                },
+                new ADummyAction()
             ],
             Upgrade.A => [
-                new AHurt()
-                {   
-                    disabled = flipped,
-                    targetPlayer = true,
-                    hurtAmount = 1 
-                },
-                new AStatus()
+                new ADummyAction(),
+                new AStatus
                 {
-                    status = Status.serenity,
+                    status = RuhigSupportStatusesManager.Paitence.Status,
                     disabled = flipped, 
-                    statusAmount = 3,
-                    targetPlayer = true
+                    statusAmount = 1,
+                    targetPlayer = true,
                 },
                 new ADummyAction(),
-                new AHurt()
-                {   
-                    disabled = !flipped,
-                    targetPlayer = true,
-                    hurtAmount = 1 
-                },
-                new AStatus()
+                new AStatus
                 {
                     status = Status.heat,
                     disabled = !flipped, 
                     statusAmount = 10,
-                    targetPlayer = true
-                }
+                    targetPlayer = true,
+                },
+                new ADummyAction()
             ],
             Upgrade.B => [
-                new AHurt()
-                {   
-                    disabled = flipped,
-                    targetPlayer = true,
-                    hurtAmount = 1 
-                },
-                new AStatus()
+                new ADummyAction(),
+                new AStatus
                 {
-                    status = Status.serenity,
+                    status = RuhigSupportStatusesManager.Paitence.Status,
                     disabled = flipped, 
-                    statusAmount = 5,
-                    targetPlayer = true
+                    statusAmount = 2,
+                    targetPlayer = true,
                 },
                 new ADummyAction(),
-                new AHurt()
-                {   
-                    disabled = !flipped,
+                new AStatus
+                {
+                    status = RuhigSupportStatusesManager.Wrath.Status,
+                    disabled = !flipped, 
+                    statusAmount = 2,
                     targetPlayer = true,
-                    hurtAmount = 1 
                 },
-                new AStatus()
+                new AStatus
                 {
                     status = Status.heat,
                     disabled = !flipped, 
-                    statusAmount = 15,
-                    targetPlayer = true
+                    statusAmount = 10,
+                    targetPlayer = true,
                 }
-            ]
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 
@@ -145,7 +121,7 @@ public class PaitenceWrath : Card, IRegisterable
                     exhaust = true,
                 };
             }
-            if (flipped == true)
+            if (flipped)
             {
                 return new CardData()
                 {
@@ -170,7 +146,7 @@ public class PaitenceWrath : Card, IRegisterable
                     exhaust = true,
                 };
             }
-            if (flipped == true)
+            if (flipped)
             {
                 return new CardData()
                 {
@@ -195,7 +171,7 @@ public class PaitenceWrath : Card, IRegisterable
                     exhaust = true,
                 };
             }
-            if (flipped == true)
+            if (flipped)
             {
                 return new CardData()
                 {

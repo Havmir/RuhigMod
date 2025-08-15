@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Reflection;
 using Nanoray.PluginManager;
 using Nickel;
-using RuhigMod.External;
+using RuhigMod.Features;
 
 namespace RuhigMod.Cards; 
 
 public class DraconicShards : Card, IRegisterable
 {
-
-    private static IKokoroApi.IV2.IConditionalApi Conditional => ModEntry.Instance.KokoroApi.Conditional; 
 
     public static void
         Register(IPluginPackage<IModManifest> package,
@@ -37,63 +35,31 @@ public class DraconicShards : Card, IRegisterable
     {
         return upgrade switch 
         {
-            Upgrade.B => [
-                new AHurt()
-                {
-                    targetPlayer = true,
-                    hurtAmount = 1
-                },
-                new AStatus()
-                {
-                    status = Status.maxShard,
-                    statusAmount = 3,
-                    targetPlayer = true
-                },
-                new AStatus()
-                {
-                    status = Status.shard,
-                    statusAmount = 99, // If there is a better way to do max LMK ~ Havmir
-                    targetPlayer = true
-                },
-            ],
             Upgrade.A => [
-                new AHurt()
+                new AStatus
                 {
                     targetPlayer = true,
-                    hurtAmount = 1
-                },
-                new AStatus()
+                    status = RuhigSupportStatusesManager.DraconicShards.Status,
+                    statusAmount = 1
+                }
+            ],
+            Upgrade.B => [
+                new AStatus
                 {
-                    status = Status.maxShard,
-                    statusAmount = 3,
-                    targetPlayer = true
-                },
-                new AStatus()
-                {
-                    status = Status.shard,
-                    statusAmount = 3,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    status = RuhigSupportStatusesManager.DraconicShardsB.Status,
+                    statusAmount = 1
                 }
             ],
             Upgrade.None => [
-                new AHurt()
+                new AStatus
                 {
                     targetPlayer = true,
-                    hurtAmount = 1
-                },
-                new AStatus()
-                {
-                    status = Status.maxShard,
-                    statusAmount = 3,
-                    targetPlayer = true
-                },
-                new AStatus()
-                {
-                status = Status.shard,
-                statusAmount = 3,
-                targetPlayer = true
+                    status = RuhigSupportStatusesManager.DraconicShards.Status,
+                    statusAmount = 1
                 }
-            ]
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 
@@ -115,8 +81,7 @@ public class DraconicShards : Card, IRegisterable
             {
                 cost = 2,
                 exhaust = true,
-                artTint = "6868b9",
-                retain = true
+                artTint = "6868b9"
             };
         }
         if (upgrade == Upgrade.None)

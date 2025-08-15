@@ -6,7 +6,7 @@ using Nickel;
 
 namespace RuhigMod.Cards; 
 
-public class RepairGambit : Card, IRegisterable
+public class RushAttack : Card, IRegisterable
 {
 
     public static void
@@ -24,9 +24,9 @@ public class RepairGambit : Card, IRegisterable
                 dontOffer = false, 
                 upgradesTo = [Upgrade.A, Upgrade.B] 
             },
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "RepairGambit", "name"])
-                .Localize, 
-            Art = StableSpr.cards_Repairs
+            Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "RushAttack", "name"])
+                .Localize,
+            Art = StableSpr.cards_Dodge,
         });
     }
         public override List<CardAction> GetActions(State s, Combat c) 
@@ -34,80 +34,85 @@ public class RepairGambit : Card, IRegisterable
         return upgrade switch 
         {
             Upgrade.None => [
-                new AHeal()
+                new AHurt
                 {
                     targetPlayer = true,
-                    healAmount = 2 
+                    hurtAmount = 1
                 },
-                new AStatus()
+                new AMove
                 {
-                    status = Status.shield,
-                    statusAmount = 0,
-                    mode = AStatusMode.Set,
+                    dir = -1,
                     targetPlayer = true
                 },
-                new AStatus()
+                new AAttack
                 {
-                    status = Status.loseEvadeNextTurn,
-                    statusAmount = 1,
+                    damage = GetDmg(s, 2),
+                    piercing = true,
+                    fast = true
+                },
+                new AMove
+                {
+                    dir = 3,
                     targetPlayer = true
                 },
-                new AEndTurn
+                new AAttack
                 {
-                    dialogueSelector = ".RepairGambit"
-                }
-            ],
-            Upgrade.B => [
-                new AHeal()
-                {
-                    targetPlayer = true,
-                    healAmount = 4 
-                },
-                new AStatus()
-                {
-                    status = Status.shield,
-                    statusAmount = 0,
-                    mode = AStatusMode.Set,
-                    targetPlayer = true
-                },
-                new AStatus()
-                {
-                    status = Status.loseEvadeNextTurn,
-                    statusAmount = 1,
-                    targetPlayer = true
-                },
-                new AStatus()
-                {
-                status = Status.powerdrive,
-                statusAmount = 2,
-                targetPlayer = false
-                },
-                new AEndTurn
-                {
-                    dialogueSelector = ".RepairGambit"
+                    damage = GetDmg(s, 2),
+                    piercing = true,
+                    fast = true
                 }
             ],
             Upgrade.A => [
-                new AHeal()
+                new AHurt
                 {
                     targetPlayer = true,
-                    healAmount = 2 
+                    hurtAmount = 1 
                 },
-                new AStatus()
+                new AMove
                 {
-                    status = Status.shield,
-                    statusAmount = -2,
+                    dir = -1,
                     targetPlayer = true
                 },
-                new AStatus()
+                new AAttack
                 {
-                    status = Status.evade,
-                    statusAmount = -2,
+                    damage = GetDmg(s, 2),
+                    piercing = true,
+                    fast = true
+                },
+                new AMove
+                {
+                    dir = 3,
                     targetPlayer = true
                 },
-                new AEndTurn
+                new AAttack
                 {
-                    dialogueSelector = ".RepairGambit"
+                    damage = GetDmg(s, 2),
+                    piercing = true,
+                    fast = true
+                }
+            ],
+            Upgrade.B => [
+                new AMove
+                {
+                    dir = -1,
+                    targetPlayer = true
+                },
+                new AAttack
+                {
+                    damage = GetDmg(s, 2),
+                    piercing = true,
+                    fast = true
+                },
+                new AMove
+                {
+                    dir = 3,
+                    targetPlayer = true
+                },
+                new AAttack
+                {
+                    damage = GetDmg(s, 2),
+                    piercing = true,
+                    fast = true
                 }
             ],
             _ => throw new ArgumentOutOfRangeException()
@@ -118,28 +123,28 @@ public class RepairGambit : Card, IRegisterable
     {
         if (upgrade == Upgrade.None)
         {
-            return new CardData()
+            return new CardData
             {
-                cost = 2, 
-                exhaust = true,
+                cost = 1, 
+                flippable = false,
                 artTint = "6868b9"
             };
         }
         if (upgrade == Upgrade.A)
         {
-            return new CardData()
+            return new CardData
             {
-                cost = 2,
-                exhaust = true,
+                cost = 0,
+                flippable = true,
                 artTint = "6868b9"
             };
         }
         if (upgrade == Upgrade.B)
         {
-            return new CardData()
+            return new CardData
             {
-                cost = 1,
-                exhaust = true,
+                cost = 2,
+                flippable = true,
                 artTint = "6868b9"
             };
         }

@@ -4,19 +4,15 @@ using System.Reflection;
 using Nanoray.PluginManager;
 using Nickel;
 using RuhigMod.Actions;
-using RuhigMod.External;
 
 namespace RuhigMod.Cards; 
 
 public class SpareParts : Card, IRegisterable
 {
 
-    private static IKokoroApi.IV2.IConditionalApi Conditional => ModEntry.Instance.KokoroApi.Conditional;
 
-
-    public static Spr sprite1;
-    public static Spr sprite2;
-    public static Spr sprite3;
+    public static Spr Sprite1;
+    public static Spr Sprite2;
     
     public static void
         
@@ -24,9 +20,8 @@ public class SpareParts : Card, IRegisterable
         Register(IPluginPackage<IModManifest> package,
             IModHelper helper)
     {
-        sprite1 = ModEntry.RegisterSprite(package, "assets/Card/SparePartsBottom.png").Sprite;
-        sprite2 = ModEntry.RegisterSprite(package, "assets/Card/SparePartsTop.png").Sprite;
-        sprite3 = ModEntry.RegisterSprite(package, "assets/Card/DespreateEnergy.png").Sprite;
+        Sprite1 = ModEntry.RegisterSprite(package, "assets/Card/SparePartsBottom.png").Sprite;
+        Sprite2 = ModEntry.RegisterSprite(package, "assets/Card/SparePartsTop.png").Sprite;
             
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
@@ -52,13 +47,14 @@ public class SpareParts : Card, IRegisterable
             Upgrade.B => [
                 new AHeal()
                 {
-                    healAmount = 4,
+                    healAmount = 6,
                     disabled = flipped,
                     targetPlayer = true
                 },
                 new AEndTurn()
                 {
                     disabled = flipped,
+                    dialogueSelector = ".SparePartsTop"
                 },
                 new InvisableRuhigSupport()
                 {
@@ -72,22 +68,25 @@ public class SpareParts : Card, IRegisterable
                 },
                 new AEndTurn()
                 {
-                    disabled = !flipped
+                    disabled = !flipped,
+                    dialogueSelector = ".SparePartsBottom"
                 }
             ],
             Upgrade.A => [
                 new ADummyAction(),
                 new AHeal()
                 {
-                    healAmount = 1,
+                    healAmount = 4,
                     disabled = flipped,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    dialogueSelector = ".SparePartsTop"
                 },
                 new ADummyAction(),
                 new RuhigSupport()
                 {
                     disabled = !flipped,
-                    IsTempQuestionMark = ModEntry.Instance.Helper.Content.Cards.IsCardTraitActive(s, this, ModEntry.Instance.Helper.Content.Cards.TemporaryCardTrait )
+                    IsTempQuestionMark = ModEntry.Instance.Helper.Content.Cards.IsCardTraitActive(s, this, ModEntry.Instance.Helper.Content.Cards.TemporaryCardTrait ),
+                    dialogueSelector = ".SparePartsBottom"
                 } ,
                 new ADummyAction(),
             ],
@@ -100,7 +99,8 @@ public class SpareParts : Card, IRegisterable
                 },
                 new FakeEndTurn()
                 {
-                    disabled = flipped
+                    disabled = flipped,
+                    dialogueSelector = ".SparePartsTop"
                 },
                 new InvisableEndTurn(),
                 new RuhigSupport()
@@ -110,9 +110,11 @@ public class SpareParts : Card, IRegisterable
                 } ,
                 new FakeEndTurn()
                 {
-                    disabled = !flipped
+                    disabled = !flipped,
+                    dialogueSelector = ".SparePartsBottom"
                 }
-            ]
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 
@@ -125,23 +127,23 @@ public class SpareParts : Card, IRegisterable
             {
                 return new CardData()
                 {
-                    cost = 1,
+                    cost = 2,
                     exhaust = false,
                     artTint = "ffffff",
                     floppable = true,
-                    art = sprite2,
+                    art = Sprite2,
                     singleUse = true
                 };
             }
-            if (flipped == true)
+            if (flipped)
             {
                 return new CardData()
                 {
-                    cost = 1,
+                    cost = 2,
                     exhaust = false,
                     artTint = "ffffff",
                     floppable = true,
-                    art = sprite1,
+                    art = Sprite1,
                     singleUse = true
                 };
             }
@@ -153,23 +155,23 @@ public class SpareParts : Card, IRegisterable
             {
                 return new CardData()
                 {
-                    cost = 2,
+                    cost = 3,
                     exhaust = false,
                     artTint = "ffffff",
                     floppable = true,
-                    art = sprite2,
+                    art = Sprite2,
                     singleUse = true
                 };
             }
-            if (flipped == true)
+            if (flipped)
             {
                 return new CardData()
                 {
-                    cost = 2,
+                    cost = 3,
                     exhaust = false,
                     artTint = "ffffff",
                     floppable = true,
-                    art = sprite1,
+                    art = Sprite1,
                     singleUse = true
                 };
             }
@@ -208,23 +210,23 @@ public class SpareParts : Card, IRegisterable
             {
                 return new CardData()
                 {
-                    cost = 2,
+                    cost = 3,
                     exhaust = false,
                     artTint = "ffffff",
                     floppable = true,
-                    art = sprite2,
+                    art = Sprite2,
                     singleUse = true
                 };
             }
-            if (flipped == true)
+            if (flipped)
             {
                 return new CardData()
                 {
-                    cost = 2,
+                    cost = 3,
                     exhaust = false,
                     artTint = "ffffff",
                     floppable = true,
-                    art = sprite1,
+                    art = Sprite1,
                     singleUse = true
                 };
             }

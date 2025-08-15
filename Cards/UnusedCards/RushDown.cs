@@ -98,7 +98,8 @@ public class RushDown : Card, IRegisterable
                     piercing = true,
                     xHint = 1
                 }
-            ]
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 

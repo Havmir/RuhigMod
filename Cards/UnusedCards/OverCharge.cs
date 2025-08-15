@@ -69,7 +69,8 @@ public class OverCharge : Card, IRegisterable
                     statusAmount = 1,
                     targetPlayer = true
                 },
-            ]
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
     public override CardData GetData(State state)

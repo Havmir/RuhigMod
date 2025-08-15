@@ -4,12 +4,11 @@
 // MVID: 2D9983B5-BA47-40A6-95C2-19EFEC0C0BC7
 // Assembly location: C:\Users\Ike\Downloads\demomod-master\demomod-master\obj\Debug\net8.0\CobaltCore.dll
 
+using System;
 using System.Collections.Generic;
 using System.Reflection;
-using RuhigMod.Features;
 using Nanoray.PluginManager;
 using Nickel;
-using RuhigMod.External;
 
 namespace RuhigMod.Cards; 
 
@@ -19,10 +18,8 @@ namespace RuhigMod.Cards;
 // 3. Get upgrade split into one body of text instead of 3
 // ~ Havmir
 
-#nullable enable
 public class RuhigsChallenge : Card, IRegisterable
 {
-  private static IKokoroApi.IV2.IConditionalApi Conditional => ModEntry.Instance.KokoroApi.Conditional;
 
   public static Spr ArtamisCardArtGrayScaleSprite;
 
@@ -63,7 +60,8 @@ public class RuhigsChallenge : Card, IRegisterable
         },
         new AAttack()
         {
-          damage = GetDmg(s, DamageAmount())
+          damage = GetDmg(s, DamageAmount()),
+          dialogueSelector = ".RuhigsChallenge"
         }
       ],
       Upgrade.B =>
@@ -75,7 +73,8 @@ public class RuhigsChallenge : Card, IRegisterable
         },
         new AAttack()
         {
-          damage = GetDmg(s, DamageAmount())
+          damage = GetDmg(s, DamageAmount()),
+          dialogueSelector = ".RuhigsChallenge"
         }
       ],
       Upgrade.A =>
@@ -87,9 +86,11 @@ public class RuhigsChallenge : Card, IRegisterable
         },
         new AAttack()
         {
-          damage = GetDmg(s, DamageAmount())
+          damage = GetDmg(s, DamageAmount()),
+          dialogueSelector = ".RuhigsChallenge"
         },
-      ]
+      ],
+      _ => throw new ArgumentOutOfRangeException()
     };
   }
 
@@ -136,19 +137,33 @@ public class RuhigsChallenge : Card, IRegisterable
     return num;
   }
   
+  public bool TargetPlayer;
+  public int RealHealAmount(State s, int baseHealAmount)
+  {
+    int num = baseHealAmount;
+    foreach (Artifact enumerateAllArtifact in s.EnumerateAllArtifacts())
+      num += enumerateAllArtifact.ModifyHealAmount(baseHealAmount, s, TargetPlayer);
+    return num;
+  }
+  
+  public int healAmount;
+  
   public override CardData GetData(State state)
   {
+    healAmount = RealHealAmount(state, GoalAmount());
+    
     if (upgrade == Upgrade.None)
     {
       CardData data = new CardData();
       data.cost = 2;
       data.unplayable = state.route is Combat route1 && !IsPlayable(route1);
-      object[] objArray = new object[3]
-      {
+      object[] objArray =
+      [
         $"{GetDmg(state, DamageAmount())}",
         $"{GoalAmount()}",
-        null!
-      };
+        null!,
+        $"{healAmount}"
+      ];
       string str1;
       if (!(state.route is Combat route2))
         str1 = "";
@@ -169,12 +184,12 @@ public class RuhigsChallenge : Card, IRegisterable
       CardData data = new CardData();
       data.cost = 2;
       data.unplayable = state.route is Combat route1 && !IsPlayable(route1);
-      object[] objArray = new object[3]
-      {
+      object[] objArray =
+      [
         $"{GetDmg(state, DamageAmount())}",
         $"{GoalAmount()}",
         null!
-      };
+      ];
       string str1;
       if (!(state.route is Combat route2))
         str1 = "";
@@ -195,12 +210,12 @@ public class RuhigsChallenge : Card, IRegisterable
       CardData data = new CardData();
       data.cost = 2;
       data.unplayable = state.route is Combat route1 && !IsPlayable(route1);
-      object[] objArray = new object[3]
-      {
+      object[] objArray =
+      [
         $"{GetDmg(state, DamageAmount())}",
         $"{GoalAmount()}",
         null!
-      };
+      ];
       string str1;
       if (!(state.route is Combat route2))
         str1 = "";

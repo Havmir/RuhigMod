@@ -6,7 +6,7 @@ using Nickel;
 
 namespace RuhigMod.Cards; 
 
-public class Stall : Card, IRegisterable
+public class DespreateEnergy : Card, IRegisterable
 {
 
     public static void
@@ -20,13 +20,13 @@ public class Stall : Card, IRegisterable
             {
                 deck = ModEntry.Instance.RuhigDeck
                     .Deck, 
-                rarity = Rarity.uncommon, 
+                rarity = Rarity.common, 
                 dontOffer = false, 
                 upgradesTo = [Upgrade.A, Upgrade.B] 
             },
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "Stall", "name"])
+            Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "DespreateEnergy", "name"])
                 .Localize,
-            Art = StableSpr.cards_SeekerMissileCard,
+            Art = ModEntry.RegisterSprite(package, "assets/Card/DespreateEnergy.png").Sprite
         });
     }
         public override List<CardAction> GetActions(State s, Combat c) 
@@ -34,49 +34,39 @@ public class Stall : Card, IRegisterable
         return upgrade switch 
         {
             Upgrade.None => [
-                new AHurt()
-                {   
-                    targetPlayer = true,
-                    hurtAmount = 2 
-                },
-                new AMove()
+                new AHurt
                 {
-                    dir = -20,
                     targetPlayer = true,
-                    dialogueSelector = ".Stall"
+                    hurtAmount = 1 
+                },
+                new AEnergy
+                {
+                    changeAmount = 2,
+                    dialogueSelector = ".DespreateEnergy"
                 }
             ],
             Upgrade.A => [
-                new AHurt()
-                {   
-                    targetPlayer = true,
-                    hurtAmount = 1,
-                },
-                new AMove()
+                new AHurt
                 {
-                    dir = -20,
                     targetPlayer = true,
-                    dialogueSelector = ".Stall"
-                }
+                    hurtAmount = 1 
+                },
+                new AEnergy
+                {
+                    changeAmount = 3,
+                    dialogueSelector = ".DespreateEnergy"
+                },
             ],
             Upgrade.B => [
-                new AMove()
+                new AHurt
                 {
-                    dir = -20,
                     targetPlayer = true,
+                    hurtAmount = 1 
                 },
-                new AStatus()
+                new AEnergy
                 {
-                    status = Status.drawLessNextTurn,
-                    targetPlayer = true,
-                    statusAmount = 1,
-                },
-                new AStatus()
-                {
-                    status = Status.energyLessNextTurn,
-                    targetPlayer = true,
-                    statusAmount = 1,
-                    dialogueSelector = ".Stall"
+                    changeAmount = 2,
+                    dialogueSelector = ".DespreateEnergy"
                 },
             ],
             _ => throw new ArgumentOutOfRangeException()
@@ -90,9 +80,8 @@ public class Stall : Card, IRegisterable
             return new CardData()
             {
                 cost = 0, 
-                exhaust = true,
-                retain = true,
-                artTint = "6868b9",
+                infinite = false,
+                artTint = "6868b9"
             };
         }
         if (upgrade == Upgrade.A)
@@ -100,8 +89,7 @@ public class Stall : Card, IRegisterable
             return new CardData()
             {
                 cost = 0,
-                exhaust = true,
-                retain = true,
+                infinite = false,
                 artTint = "6868b9"
             };
         }
@@ -109,10 +97,10 @@ public class Stall : Card, IRegisterable
         {
             return new CardData()
             {
-                cost = 2,
-                exhaust = true,
+                cost = 0,
+                infinite = true,
                 retain = true,
-                artTint = "6868b9",
+                artTint = "6868b9"
             };
         }
         return default;

@@ -4,18 +4,11 @@ using System.Reflection;
 using Nanoray.PluginManager;
 using Nickel;
 using RuhigMod.Actions;
-using RuhigMod.External;
 
 namespace RuhigMod.Cards; 
 
 public class RuhigGift : Card, IRegisterable /* name of card needs to go first purple */
 {
-
-    private static IKokoroApi.IV2.IConditionalApi Conditional => ModEntry.Instance.KokoroApi.Conditional;
-
-
-    
-
     
     public static void
         
@@ -49,7 +42,8 @@ public class RuhigGift : Card, IRegisterable /* name of card needs to go first p
             Upgrade.A => [
                 new RuhigSupportA()
                 {
-                    IsTempQuestionMark = ModEntry.Instance.Helper.Content.Cards.IsCardTraitActive(s, this, ModEntry.Instance.Helper.Content.Cards.TemporaryCardTrait )
+                    IsTempQuestionMark = ModEntry.Instance.Helper.Content.Cards.IsCardTraitActive(s, this, ModEntry.Instance.Helper.Content.Cards.TemporaryCardTrait ),
+                    dialogueSelector = ".RuhigsGift"
                 },
                 new AStatus()
                 {
@@ -67,7 +61,8 @@ public class RuhigGift : Card, IRegisterable /* name of card needs to go first p
             Upgrade.B => [
                 new RuhigSupportB()
                 {
-                    IsTempQuestionMark = ModEntry.Instance.Helper.Content.Cards.IsCardTraitActive(s, this, ModEntry.Instance.Helper.Content.Cards.TemporaryCardTrait )
+                    IsTempQuestionMark = ModEntry.Instance.Helper.Content.Cards.IsCardTraitActive(s, this, ModEntry.Instance.Helper.Content.Cards.TemporaryCardTrait ),
+                    dialogueSelector = ".RuhigsGift"
                 },
                 new AStatus()
                 {
@@ -85,7 +80,8 @@ public class RuhigGift : Card, IRegisterable /* name of card needs to go first p
             Upgrade.None => [
                 new RuhigSupport()
                 {
-                    IsTempQuestionMark = ModEntry.Instance.Helper.Content.Cards.IsCardTraitActive(s, this, ModEntry.Instance.Helper.Content.Cards.TemporaryCardTrait )
+                    IsTempQuestionMark = ModEntry.Instance.Helper.Content.Cards.IsCardTraitActive(s, this, ModEntry.Instance.Helper.Content.Cards.TemporaryCardTrait ),
+                    dialogueSelector = ".RuhigsGift"
                 },
                 new AStatus()
                 {
@@ -99,7 +95,8 @@ public class RuhigGift : Card, IRegisterable /* name of card needs to go first p
                 statusAmount = 1,
                 targetPlayer = true
                 }
-            ]
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 

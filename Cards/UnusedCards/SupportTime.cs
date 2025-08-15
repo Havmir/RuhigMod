@@ -73,7 +73,8 @@ public class SupportTime : Card, IRegisterable
                     inCombat = true,
                     discount = -1
                 }
-            ]
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 

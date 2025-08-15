@@ -4,16 +4,14 @@ using System.Reflection;
 using Nanoray.PluginManager;
 using Nickel;
 using RuhigMod.Actions;
-using RuhigMod.External;
+using RuhigMod.Features;
+
 
 namespace RuhigMod.Cards; 
 
 public class RuhigShot : Card, IRegisterable
 {
-
-    private static IKokoroApi.IV2.IConditionalApi Conditional => ModEntry.Instance.KokoroApi.Conditional;
-
-
+        
     public static Spr CorrodeBottom;
     public static Spr CorrodeTop;
     
@@ -47,30 +45,32 @@ public class RuhigShot : Card, IRegisterable
         return upgrade switch 
         {
             Upgrade.A => [
-                new AHurt()
+                new AHurt
                 {
                     targetPlayer = true,
                     hurtAmount = 1, 
                     disabled = flipped
                 },
-                new AAttack()
+                new AAttack
                 {
                     damage = GetDmg(s, 2),
                     piercing = true,
                     fast = true,
                     disabled = flipped
                 },
-                new AAttack()
+                new AAttack
                 {
                     damage = GetDmg(s, 2),
                     piercing = true,
                     fast = true,
-                    disabled = flipped
+                    disabled = flipped,
+                    dialogueSelector = ".RuhigShot"
                 },
                 new ADummyAction(),
-                new RuhigsAdaptability()
+                new RuhigsAdaptability
                 {
-                    disabled = !flipped
+                    disabled = !flipped,
+                    dialogueSelector = ".RuhigAdaptability"
                 } 
             ],
             Upgrade.B => [
@@ -79,7 +79,6 @@ public class RuhigShot : Card, IRegisterable
                     targetPlayer = true,
                     hurtAmount = 1 
                 },
-
                 new AAttack()
                 {
                     damage = GetDmg(s, 2),
@@ -100,48 +99,56 @@ public class RuhigShot : Card, IRegisterable
                 },
                 new AStatus()
                 {
-                status = Status.overdrive,
-                statusAmount = 1,
-                targetPlayer = true
+                    status = Status.overdrive,
+                    statusAmount = 1,
+                    targetPlayer = true,
+                    dialogueSelector = ".RuhigShot"
                 },
             ],
             Upgrade.None => [
-                new AHurt()
+                new AHurt
                 {
                     targetPlayer = true,
                     hurtAmount = 1, 
-                    disabled = flipped
+                    disabled = flipped,
                 },
-                new AAttack()
+                new AAttack
                 {
                     damage = GetDmg(s, 2),
                     piercing = true,
                     fast = true,
                     disabled = flipped
                 },
-                new AAttack()
+                new AAttack
                 {
                     damage = GetDmg(s, 2),
                     piercing = true,
                     fast = true,
-                    disabled = flipped
+                    disabled = flipped,
+                    dialogueSelector = ".RuhigShot"
                 },
                 new ADummyAction(),
-                new RuhigsAdaptability()
+                new RuhigsAdaptability
                 {
-                    disabled = !flipped
-                } 
-            ]
+                    disabled = !flipped,
+                    dialogueSelector = ".RuhigAdaptability"
+                } ,
+            ],
+            
+
+            
+            _ => throw new ArgumentOutOfRangeException()
         };
+        //return default!;
+        
     }
 
         
     public override CardData GetData(State state)
     {
-        if (upgrade == Upgrade.A)
+        switch (upgrade)
         {
-            if (flipped == false)
-            {
+            case Upgrade.A when flipped == false:
                 return new CardData()
                 {
                     cost = 0,
@@ -150,9 +157,7 @@ public class RuhigShot : Card, IRegisterable
                     floppable = true,
                     art = CorrodeTop
                 };
-            }
-            if (flipped == true)
-            {
+            case Upgrade.A when flipped:
                 return new CardData()
                 {
                     cost = 0,
@@ -161,22 +166,15 @@ public class RuhigShot : Card, IRegisterable
                     floppable = true,
                     art = CorrodeBottom
                 };
-            }
-        }
-        if (upgrade == Upgrade.B)
-        {
-            return new CardData()
-            {
-                cost = 2,
-                exhaust = false,
-                artTint = "6868b9",
-                art = StableSpr.cards_Corrode
-            };
-        }
-        if (upgrade == Upgrade.None)
-        {
-            if (flipped == false)
-            {
+            case Upgrade.B:
+                return new CardData()
+                {
+                    cost = 2,
+                    exhaust = false,
+                    artTint = "6868b9",
+                    art = StableSpr.cards_Corrode
+                };
+            case Upgrade.None when flipped == false:
                 return new CardData()
                 {
                     cost = 1,
@@ -185,9 +183,7 @@ public class RuhigShot : Card, IRegisterable
                     floppable = true,
                     art = CorrodeTop
                 };
-            }
-            if (flipped == true)
-            {
+            case Upgrade.None when flipped:
                 return new CardData()
                 {
                     cost = 0,
@@ -196,9 +192,9 @@ public class RuhigShot : Card, IRegisterable
                     floppable = true,
                     art = CorrodeBottom
                 };
-            }
+            default:
+                return default;
         }
-        return default;
     }
 };
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Nanoray.PluginManager;
 using Nickel;
@@ -40,7 +41,8 @@ public class ColorlessRuhigSummon : Card, IRegisterable /* name of card needs to
                     overrideUpgradeChances = false,
                     canSkip = false,
                     inCombat = true,
-                    discount = -1
+                    discount = -1,
+                    dialogueSelector = ".ColorlessRuhigSummon"
                 }
             ],
             Upgrade.B => [
@@ -52,7 +54,8 @@ public class ColorlessRuhigSummon : Card, IRegisterable /* name of card needs to
                     overrideUpgradeChances = false,
                     canSkip = false,
                     inCombat = true,
-                    discount = -1
+                    discount = -1,
+                    dialogueSelector = ".ColorlessRuhigSummon"
                 }
             ],
             Upgrade.None => [
@@ -64,9 +67,11 @@ public class ColorlessRuhigSummon : Card, IRegisterable /* name of card needs to
                     overrideUpgradeChances = false,
                     canSkip = false,
                     inCombat = true,
-                    discount = -1
+                    discount = -1,
+                    dialogueSelector = ".ColorlessRuhigSummon"
                 }
-            ]
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 

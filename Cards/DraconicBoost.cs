@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Reflection;
 using Nanoray.PluginManager;
 using Nickel;
-using RuhigMod.External;
 
 namespace RuhigMod.Cards; 
 
 public class DraconicBoost : Card, IRegisterable
 {
-
-    private static IKokoroApi.IV2.IConditionalApi Conditional => ModEntry.Instance.KokoroApi.Conditional; 
+    
 
     public static void
         Register(IPluginPackage<IModManifest> package,
@@ -46,7 +44,8 @@ public class DraconicBoost : Card, IRegisterable
                 {
                     status = Status.boost,
                     statusAmount = 3,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    dialogueSelector = ".DraconicBoost"
                 }
             ],
             Upgrade.B => [
@@ -54,7 +53,8 @@ public class DraconicBoost : Card, IRegisterable
                 {
                     status = Status.boost,
                     statusAmount = 2,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    dialogueSelector = ".DraconicBoost"
                 },
             ],
             Upgrade.None => [
@@ -67,9 +67,11 @@ public class DraconicBoost : Card, IRegisterable
                 {
                     status = Status.boost,
                     statusAmount = 2,
-                    targetPlayer = true
+                    targetPlayer = true,
+                    dialogueSelector = ".DraconicBoost"
                 }
-            ]
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 

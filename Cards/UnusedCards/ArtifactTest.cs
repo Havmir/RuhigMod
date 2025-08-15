@@ -57,7 +57,8 @@ public class ArtifactTest : Card, IRegisterable
                 {
                     artifact = new HullArtifacts()
                 }
-            ]
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 

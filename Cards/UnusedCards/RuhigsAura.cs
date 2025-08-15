@@ -4,6 +4,7 @@
 // MVID: 2D9983B5-BA47-40A6-95C2-19EFEC0C0BC7
 // Assembly location: C:\Users\Ike\Downloads\demomod-master\demomod-master\obj\Debug\net8.0\CobaltCore.dll
 
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using RuhigMod.Features;
@@ -73,7 +74,8 @@ public class RuhigsAura : Card, IRegisterable
           amount = HullLostManagersNumber(c),
           targetPlayer = true
         }
-      ]
+      ],
+      _ => throw new ArgumentOutOfRangeException()
     };
   }
 

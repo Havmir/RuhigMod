@@ -4,14 +4,13 @@ using System.Reflection;
 using RuhigMod.Actions;
 using Nanoray.PluginManager;
 using Nickel;
-using RuhigMod.External;
+
 
 namespace RuhigMod.Cards; 
 
 public class CardCopier : Card, IRegisterable
 {
 
-    private static IKokoroApi.IV2.IConditionalApi Conditional => ModEntry.Instance.KokoroApi.Conditional; 
 
     public static void
         Register(IPluginPackage<IModManifest> package,
@@ -38,44 +37,54 @@ public class CardCopier : Card, IRegisterable
         return upgrade switch
         {
             Upgrade.None => [
-                new AHurt()
+                new AHurt
                 {
                     targetPlayer = true,
                     hurtAmount = 1
                 },
-                new ACardSelect()
+                new ACardSelect
                 {
                     browseAction = new CardCopyEffect(),
                     browseSource = CardBrowse.Source.Hand
                 },
-                new AEndTurn()
+                new AEndTurn
+                {
+                    dialogueSelector = ".CardCopier"
+                }
             ],
             Upgrade.A => [
-                new AHurt()
+                new AHurt
                 {
                     targetPlayer = true,
                     hurtAmount = 1
                 },
-                new ACardSelect()
+                new ACardSelect
                 {
                     browseAction = new CardCopyEffect(),
                     browseSource = CardBrowse.Source.Deck
                 },
-                new AEndTurn()
+                new AEndTurn
+                {
+                    dialogueSelector = ".CardCopier"
+                }
             ],
             Upgrade.B => [
-                new AHurt()
+                new AHurt
                 {
                     targetPlayer = true,
                     hurtAmount = 1
                 },
-                new ACardSelect()
+                new ACardSelect
                 {
                     browseAction = new CardCopyEffectDouble(),
                     browseSource = CardBrowse.Source.Hand
                 },
-                new AEndTurn()
-            ]
+                new AEndTurn
+                {
+                    dialogueSelector = ".CardCopierB"
+                }
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 

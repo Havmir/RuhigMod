@@ -6,7 +6,7 @@ using Nickel;
 
 namespace RuhigMod.Cards; 
 
-public class RepairGambit : Card, IRegisterable
+public class Support : Card, IRegisterable
 {
 
     public static void
@@ -20,103 +20,108 @@ public class RepairGambit : Card, IRegisterable
             {
                 deck = ModEntry.Instance.RuhigDeck
                     .Deck, 
-                rarity = Rarity.uncommon, 
+                rarity = Rarity.rare, 
                 dontOffer = false, 
                 upgradesTo = [Upgrade.A, Upgrade.B] 
             },
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "RepairGambit", "name"])
-                .Localize, 
-            Art = StableSpr.cards_Repairs
+            Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "Support", "name"])
+                .Localize,
+            Art = StableSpr.cards_Scattershot
         });
     }
-        public override List<CardAction> GetActions(State s, Combat c) 
+        public override List<CardAction> GetActions(State s, Combat c)
     {
         return upgrade switch 
         {
             Upgrade.None => [
-                new AHeal()
-                {
-                    targetPlayer = true,
-                    healAmount = 2 
-                },
                 new AStatus()
                 {
-                    status = Status.shield,
-                    statusAmount = 0,
-                    mode = AStatusMode.Set,
-                    targetPlayer = true
-                },
-                new AStatus()
-                {
-                    status = Status.loseEvadeNextTurn,
-                    statusAmount = 1,
-                    targetPlayer = true
-                },
-                new AEndTurn
-                {
-                    dialogueSelector = ".RepairGambit"
-                }
-            ],
-            Upgrade.B => [
-                new AHeal()
-                {
-                    targetPlayer = true,
-                    healAmount = 4 
-                },
-                new AStatus()
-                {
-                    status = Status.shield,
-                    statusAmount = 0,
-                    mode = AStatusMode.Set,
-                    targetPlayer = true
-                },
-                new AStatus()
-                {
-                    status = Status.loseEvadeNextTurn,
+                    status = Status.overdrive,
                     statusAmount = 1,
                     targetPlayer = true
                 },
                 new AStatus()
                 {
-                status = Status.powerdrive,
-                statusAmount = 2,
-                targetPlayer = false
+                    status = Status.tableFlip,
+                    statusAmount = 1,
+                    targetPlayer = true
                 },
-                new AEndTurn
+                new AHeal()
                 {
-                    dialogueSelector = ".RepairGambit"
-                }
+                    targetPlayer = true,
+                    healAmount = 1
+                },
+                new AHurt()
+                {
+                targetPlayer = true,
+                hurtAmount = 2,
+                dialogueSelector = ".Support"
+                },
             ],
             Upgrade.A => [
+                new AStatus()
+                {
+                    status = Status.powerdrive,
+                    statusAmount = 1,
+                    targetPlayer = true
+                },
+                new AStatus()
+                {
+                status = Status.tableFlip,
+                statusAmount = 1,
+                targetPlayer = true
+                },
                 new AHeal()
                 {
                     targetPlayer = true,
-                    healAmount = 2 
+                    healAmount = 1
                 },
-                new AStatus()
+                new AHurt()
                 {
-                    status = Status.shield,
-                    statusAmount = -2,
+                    targetPlayer = true,
+                    hurtAmount = 2,
+                    dialogueSelector = ".Support"
+                },
+            ],
+            Upgrade.B => [
+                new AStatus() // this being infront of cleanExhaust is intentional, to make this upgrade sneakly less viable as an aggressive card - Havmir
+                {
+                    status = Status.cleanExhaust,
+                    statusAmount = 1,
                     targetPlayer = true
                 },
                 new AStatus()
                 {
-                    status = Status.evade,
-                    statusAmount = -2,
+                    status = Status.overdrive,
+                    statusAmount = 1,
                     targetPlayer = true
                 },
-                new AEndTurn
+                new AStatus()
                 {
-                    dialogueSelector = ".RepairGambit"
-                }
+                    status = Status.tableFlip,
+                    statusAmount = 1,
+                    targetPlayer = true
+                },
+                new AHeal()
+                {
+                    targetPlayer = true,
+                    healAmount = 1
+                },
+                new AHurt()
+                {
+                    targetPlayer = true,
+                    hurtAmount = 2,
+                    dialogueSelector = ".Support"
+                },
             ],
             _ => throw new ArgumentOutOfRangeException()
         };
     }
+    
 
     public override CardData GetData(State state)
     {
-        if (upgrade == Upgrade.None)
+        if (upgrade == Upgrade.None) 
         {
             return new CardData()
             {
@@ -138,7 +143,7 @@ public class RepairGambit : Card, IRegisterable
         {
             return new CardData()
             {
-                cost = 1,
+                cost = 3,
                 exhaust = true,
                 artTint = "6868b9"
             };

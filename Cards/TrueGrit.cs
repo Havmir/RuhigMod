@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Reflection;
 using Nanoray.PluginManager;
 using Nickel;
+using RuhigMod.Features;
 
 namespace RuhigMod.Cards; 
 
-public class Fix : Card, IRegisterable
+public class TrueGrit : Card, IRegisterable
 {
 
     public static void
@@ -20,45 +21,46 @@ public class Fix : Card, IRegisterable
             {
                 deck = ModEntry.Instance.RuhigDeck
                     .Deck, 
-                rarity = Rarity.common, 
-                dontOffer = false, 
+                rarity = Rarity.rare, 
+                dontOffer = true, 
                 upgradesTo = [Upgrade.A, Upgrade.B] 
             },
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "Fix", "name"])
+            Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "TrueGrit", "name"])
                 .Localize,
-            Art = StableSpr.cards_Repairs,
+            Art = ModEntry.RegisterSprite(package, "assets/Card/ITriedToDoSomethingCool.png").Sprite
         });
     }
         public override List<CardAction> GetActions(State s, Combat c)
     {
         return upgrade switch 
         {
-            Upgrade.None => [
-                new AExhaustEntireHand(),
-                new AHeal()
+            Upgrade.B => [
+                new AStatus
                 {
+                    status = RuhigSupportStatusesManager.TrueGrit.Status,
+                    statusAmount = 1,
                     targetPlayer = true,
-                    healAmount = 1,
                 },
-                new AEndTurn()
+                new ADrawCard
+                {
+                    count = 2
+                }
             ],
             Upgrade.A => [
-                new AExhaustEntireHand(),
-                new AHeal()
+                new AStatus
                 {
+                    status = RuhigSupportStatusesManager.TrueGrit.Status, 
+                    statusAmount = 1,
                     targetPlayer = true,
-                    healAmount = 2,
-                },
-                new AEndTurn()
+                }
             ],
-            Upgrade.B => [
-                new AExhaustEntireHand(),
-                new AHeal()
+            Upgrade.None => [
+                new AStatus
                 {
+                    status = RuhigSupportStatusesManager.TrueGrit.Status,
+                    statusAmount = 1,
                     targetPlayer = true,
-                    healAmount = 1,
-                },
-                new AEndTurn()
+                }
             ],
             _ => throw new ArgumentOutOfRangeException()
         };
@@ -66,32 +68,32 @@ public class Fix : Card, IRegisterable
 
     public override CardData GetData(State state)
     {
-        if (upgrade == Upgrade.None) 
+        if (upgrade == Upgrade.A) 
         {
-            return new CardData()
+            return new CardData
             {
                 cost = 2, 
                 exhaust = true,
-                artTint = "6868b9"
-            };
-        }
-        if (upgrade == Upgrade.A)
-        {
-            return new CardData()
-            {
-                cost = 2,
-                exhaust = true,
-                artTint = "6868b9"
+                artTint = "999999"
             };
         }
         if (upgrade == Upgrade.B)
         {
-            return new CardData()
+            return new CardData
             {
                 cost = 3,
                 exhaust = true,
-                retain = true,
-                artTint = "6868b9"
+                artTint = "999999"
+                //artTint = "6868b9"
+            };
+        }
+        if (upgrade == Upgrade.None)
+        {
+            return new CardData
+            {
+                cost = 3,
+                exhaust = true,
+                artTint = "999999"
             };
         }
         return default;

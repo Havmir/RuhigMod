@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Reflection;
 using Nanoray.PluginManager;
 using Nickel;
-using RuhigMod.Features;
 
 namespace RuhigMod.Cards; 
 
-public class Zoning : Card, IRegisterable
+public class SwordShot : Card, IRegisterable
 {
 
     public static void
@@ -25,9 +24,9 @@ public class Zoning : Card, IRegisterable
                 dontOffer = true, 
                 upgradesTo = [Upgrade.A, Upgrade.B] 
             },
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "Zoning", "name"])
+            Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "SwordShot", "name"])
                 .Localize,
-            Art = StableSpr.cards_goat,
+            Art = ModEntry.RegisterSprite(package, "assets/Card/Sword.png").Sprite
         });
     }
         public override List<CardAction> GetActions(State s, Combat c)
@@ -37,28 +36,55 @@ public class Zoning : Card, IRegisterable
             Upgrade.B => [
                 new AStatus
                 {
-                    status = RuhigSupportStatusesManager.ZoningB.Status,
-                    disabled = flipped, 
+                    status = Status.drawLessNextTurn,
                     statusAmount = 1,
-                    targetPlayer = true,
+                    targetPlayer = true
+                },
+                new ASpawn
+                {
+                    thing = new Missile
+                    {
+                        missileType = MissileType.heavy,
+                        skin = "sword"
+                    },
+                    offset = 0
+                },
+                new ASpawn
+                {
+                    thing = new Missile
+                    {
+                    missileType = MissileType.heavy,
+                    skin = "sword"
+                    },
+                    offset = -1
                 }
             ],
             Upgrade.A => [
-                new AStatus
+                new ASpawn
                 {
-                    status = RuhigSupportStatusesManager.ZoningA.Status,
-                    disabled = flipped, 
-                    statusAmount = 1,
-                    targetPlayer = true,
+                    thing = new Missile
+                    {
+                        missileType = MissileType.heavy,
+                        skin = "sword"
+                    },
+                    offset = 0
                 }
             ],
             Upgrade.None => [
                 new AStatus
                 {
-                    status = RuhigSupportStatusesManager.Zoning.Status,
-                    disabled = flipped, 
+                    status = Status.drawLessNextTurn,
                     statusAmount = 1,
-                    targetPlayer = true,
+                    targetPlayer = true
+                },
+                new ASpawn
+                {
+                    thing = new Missile
+                    {
+                        missileType = MissileType.heavy,
+                        skin = "sword"
+                    },
+                    offset = 0
                 }
             ],
             _ => throw new ArgumentOutOfRangeException()
@@ -72,17 +98,16 @@ public class Zoning : Card, IRegisterable
             return new CardData()
             {
                 cost = 1, 
-                exhaust = true,
-                artTint = "6868b9"
+                artTint = "ffffff"
             };
         }
         if (upgrade == Upgrade.B)
         {
             return new CardData()
             {
-                cost = 1,
-                exhaust = true,
-                artTint = "6868b9"
+                cost = 2,
+                artTint = "ffffff",
+                flippable = true
             };
         }
         if (upgrade == Upgrade.None)
@@ -90,8 +115,7 @@ public class Zoning : Card, IRegisterable
             return new CardData()
             {
                 cost = 1,
-                exhaust = true,
-                artTint = "6868b9"
+                artTint = "ffffff"
             };
         }
         return default;

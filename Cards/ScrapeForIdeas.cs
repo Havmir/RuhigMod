@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Reflection;
 using Nanoray.PluginManager;
 using Nickel;
-using RuhigMod.External;
 
 namespace RuhigMod.Cards; 
 
 public class ScrapeForIdeas : Card, IRegisterable
 {
-
-    private static IKokoroApi.IV2.IConditionalApi Conditional => ModEntry.Instance.KokoroApi.Conditional; 
-
+    
     public static void
         Register(IPluginPackage<IModManifest> package,
             IModHelper helper) 
@@ -63,7 +60,8 @@ public class ScrapeForIdeas : Card, IRegisterable
                 {
                     count = 5
                 }
-            ]
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 

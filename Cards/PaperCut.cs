@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Reflection;
 using Nanoray.PluginManager;
 using Nickel;
+using RuhigMod.Actions;
 
 namespace RuhigMod.Cards; 
 
-public class Meditation : Card, IRegisterable
+public class PaperCut : Card, IRegisterable
 {
-    
+
     public static void
         Register(IPluginPackage<IModManifest> package,
             IModHelper helper) 
-    
     {
         helper.Content.Cards.RegisterCard(new CardConfiguration
         {
@@ -21,14 +21,13 @@ public class Meditation : Card, IRegisterable
             {
                 deck = ModEntry.Instance.RuhigDeck
                     .Deck, 
-                rarity = Rarity.common, 
-                dontOffer = false, /* 767 */
+                rarity = Rarity.common,
+                dontOffer = false, 
                 upgradesTo = [Upgrade.A, Upgrade.B] 
             },
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "Meditation", "name"])
+            Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "PaperCut", "name"])
                 .Localize,
-
-            Art = StableSpr.cards_eunice,
+            Art = StableSpr.cards_Repairs,
         });
     }
         public override List<CardAction> GetActions(State s, Combat c)
@@ -36,37 +35,24 @@ public class Meditation : Card, IRegisterable
         return upgrade switch 
         {
             Upgrade.None => [
-                new ADiscard()
-                {   
-                    count = 2
-                },
-                new ADrawCard()
+                new PaperCutAction(),
+                new ADrawCard
                 {
-                    count = 3,
-                    dialogueSelector = ".Meditation"
-                },
+                    count = 1
+                }
             ],
             Upgrade.A => [
-                new ADiscard()
-                {   
-                    count = 3
-                },
-                new ADrawCard()
+                new PaperCutAction(),
+                new PaperCutAction(),
+                new ADrawCard
                 {
-                    count = 4,
-                    dialogueSelector = ".Meditation"
-                },
+                    count = 1
+                }
             ],
             Upgrade.B => [
-                new ADiscard()
-                {   
-                    count = 2
-                },
-                new ADrawCard()
-                {
-                    count = 3,
-                    dialogueSelector = ".Meditation"
-                },
+                new PaperCutAction(),
+                new PaperCutAction(),
+                new PaperCutAction()
             ],
             _ => throw new ArgumentOutOfRangeException()
         };
@@ -74,22 +60,20 @@ public class Meditation : Card, IRegisterable
 
     public override CardData GetData(State state)
     {
-        if (upgrade == Upgrade.None)
+        if (upgrade == Upgrade.None) 
         {
             return new CardData()
             {
-                cost = 1,
-                artTint = "6868b9",
-                singleUse = false,
+                cost = 0, 
+                artTint = "ff0000"
             };
-            
         }
         if (upgrade == Upgrade.A)
         {
             return new CardData()
             {
-                cost = 1,
-                artTint = "6868b9",
+                cost = 0,
+                artTint = "ff0000"
             };
         }
         if (upgrade == Upgrade.B)
@@ -97,7 +81,7 @@ public class Meditation : Card, IRegisterable
             return new CardData()
             {
                 cost = 0,
-                artTint = "6868b9",
+                artTint = "ff0000"
             };
         }
         return default;

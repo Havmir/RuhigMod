@@ -1,16 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Nanoray.PluginManager;
 using Nickel;
 using RuhigMod.Actions;
-using RuhigMod.External;
 
 namespace RuhigMod.Cards; 
 
 public class DraconicBlessing : Card, IRegisterable
 {
-
-    private static IKokoroApi.IV2.IConditionalApi Conditional => ModEntry.Instance.KokoroApi.Conditional;
 
 
     private static Spr _sprite1; /* both getting the artwork and the code to do this was a cursed process https://discord.com/channels/806989214133780521/1138540954761035827/1365799089404645439*/
@@ -56,7 +54,8 @@ public class DraconicBlessing : Card, IRegisterable
                 {
                     targetPlayer = true,
                     status = Status.energyNextTurn,
-                    statusAmount = 1
+                    statusAmount = 1,
+                    dialogueSelector = ".DraconicBlessingBottom"
                 }
             ],
             Upgrade.A => [
@@ -72,7 +71,8 @@ public class DraconicBlessing : Card, IRegisterable
                 new InvisableRuhigSupport()
                 {
                     disabled = flipped,
-                    IsTempQuestionMark = ModEntry.Instance.Helper.Content.Cards.IsCardTraitActive(s, this, ModEntry.Instance.Helper.Content.Cards.TemporaryCardTrait )
+                    IsTempQuestionMark = ModEntry.Instance.Helper.Content.Cards.IsCardTraitActive(s, this, ModEntry.Instance.Helper.Content.Cards.TemporaryCardTrait ),
+                    dialogueSelector = ".DraconicBlessingTop"
                 },
                 new RuhigsAdaptability()
                 {
@@ -81,7 +81,8 @@ public class DraconicBlessing : Card, IRegisterable
                 new AEnergy()
                 {
                     changeAmount = 3,
-                    disabled = !flipped
+                    disabled = !flipped,
+                    dialogueSelector = ".DraconicBlessingBottom"
                 },
             ],
             Upgrade.None => [
@@ -92,7 +93,8 @@ public class DraconicBlessing : Card, IRegisterable
                 new RuhigSupport()
                 {
                     disabled = flipped,
-                    IsTempQuestionMark = ModEntry.Instance.Helper.Content.Cards.IsCardTraitActive(s, this, ModEntry.Instance.Helper.Content.Cards.TemporaryCardTrait )
+                    IsTempQuestionMark = ModEntry.Instance.Helper.Content.Cards.IsCardTraitActive(s, this, ModEntry.Instance.Helper.Content.Cards.TemporaryCardTrait ),
+                    dialogueSelector = ".DraconicBlessingTop"
                 } ,
                 new ADummyAction(),
                 new RuhigsAdaptability()
@@ -102,9 +104,11 @@ public class DraconicBlessing : Card, IRegisterable
                 new AEnergy()
                 {
                     changeAmount = 2,
-                    disabled = !flipped
+                    disabled = !flipped,
+                    dialogueSelector = ".DraconicBlessingBottom"
                 },
-            ]
+            ],
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 
@@ -138,7 +142,7 @@ public class DraconicBlessing : Card, IRegisterable
                     singleUse = true
                 };
             }
-            if (flipped == true)
+            if (flipped)
             {
                 return new CardData()
                 {
@@ -165,7 +169,7 @@ public class DraconicBlessing : Card, IRegisterable
                     singleUse = true
                 };
             }
-            if (flipped == true)
+            if (flipped)
             {
                 return new CardData()
                 {

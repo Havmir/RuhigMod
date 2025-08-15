@@ -5,14 +5,12 @@
 // Assembly location: C:\Users\Ike\Downloads\demomod-master\demomod-master\obj\Debug\net8.0\CobaltCore.dll
 
 using System.Collections.Generic;
-using System;
-using System.Collections.Generic;
 using System.Reflection;
 using Nanoray.PluginManager;
 using Nickel;
 using RuhigMod.External;
 
-namespace RuhigMod.Cards; 
+namespace RuhigMod.Cards.UnusedCards; 
 
 
 
