@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<RootNamespace>RuhigMod</RootNamespace>
-		<Version>0.2.1</Version>
+		<Version>1.1.0</Version>
 		<IncludedModProjectPaths>i18n;assets</IncludedModProjectPaths>
 
 		<TargetFramework>net8.0</TargetFramework>
@@ -26,5 +26,7 @@
 	  <Folder Include="assets\Artifact\" />
 	  <Folder Include="assets\Card\" />
 	  <Folder Include="Documentation\" />
+	  <ModFiles Include="i18n/**" />
+	  <ModFiles Include="assets/**" />
 	</ItemGroup>
 </Project>

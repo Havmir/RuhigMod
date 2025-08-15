@@ -11,6 +11,7 @@ using RuhigMod.Artifacts;
 using RuhigMod.Cards;
 using RuhigMod.External;
 using RuhigMod.Features;
+using RuhigMod.Dialogue;
 
 // ToDoList:
 // 1. fix captalization convention errors
@@ -27,75 +28,132 @@ internal class ModEntry : SimpleMod
     internal ILocalizationProvider<IReadOnlyList<string>> AnyLocalizations { get; }
     internal ILocaleBoundNonNullLocalizationProvider<IReadOnlyList<string>> Localizations { get; }
     
-    private static List<Type> RuhigCommonCardTypes = [
+    // 662 start
+    
+    public bool ModDialogueInited;
+    internal string UniqueName { get; private set; } // used in artifact dialouge
+    
+    private static List<Type> _colorlessCommonCardTypes = [
+    ];
+    private static List<Type> _colorlessUncommonCardTypes = [
+    ];
+    private static List<Type> _colorlessRareCardTypes = [
+    ];
+    private static List<Type> _colorlessSpecialCardTypes = [
+    ];
+    private static IEnumerable<Type> _colorlessAllCardTypes =
+        _colorlessCommonCardTypes
+            .Concat(_colorlessUncommonCardTypes)
+            .Concat(_colorlessRareCardTypes)
+            .Concat(_colorlessSpecialCardTypes);
+    private static List<Type> _colorlessCommonArtifactTypes = [
+    ];
+    private static List<Type> _colorlessBossArtifactTypes = [
+    ];
+    private static List<Type> _colorlessEventArtifactTypes = [
+    ];
+    private static IEnumerable<Type> _colorlessAllArtifactTypes =
+        _colorlessCommonArtifactTypes
+            .Concat(_colorlessBossArtifactTypes)
+            .Concat(_colorlessEventArtifactTypes);
+    private static List<Type> _shipArtifactTypes = [
+    ];
+    internal static IReadOnlyList<Type> EventTypes { get; } = [
+    ];
+    /* internal static List<Type> Dialogue_Types = [
+        typeof(StoryDialogueV2),
+        typeof(CombatDialogueV2),
+        typeof(EventDialogueV2)
+    ]; */ // Dialouge Machine????
+    private static IEnumerable<Type> _scraletRuhigContent =
+        _colorlessAllCardTypes
+            .Concat(_colorlessAllArtifactTypes)
+            .Concat(_shipArtifactTypes)
+            .Concat(EventTypes);
+            //.Concat(Dialogue_Types); Dialouge Machine????
+            // 662 end
+    
+    private static List<Type> _ruhigCommonCardTypes = [
         //typeof(RftfiftyChallengeOne), 8110 
         typeof(RuhigShot),
-        typeof(DeepBreath),
-        typeof(PainfulMemory),
+        // typeof(DeepBreath), removed to make room for a better starter card pair & not being very cohesive with the rest of Ruhig's Kit ~ Havmir
         typeof(ColorlessRuhigSummon),
         typeof(Meditation),
         typeof(SpareParts),
         typeof(DraconicBlessing),
         typeof(DraconicBoost),
         typeof(DisposableHull),
-        typeof(DespreateEnergy)
+        //typeof(DespreateEnergy), removed for being a bad trade for most people and not going to be good for almost any build out there. ~ 09/07/2025 Havmir
+        typeof(Fix),
+        typeof(SwordShot),
+        typeof(PaperCut)
     ];
-    private static List<Type> RuhigUncommonCardTypes = [
-        typeof(RushAttack),
+    private static List<Type> _ruhigUncommonCardTypes = [
+        //typeof(RushAttack), ~ It's really a more akward Ruhig Shot, so I scrapped it ~ Havmir
         typeof(ScrapeForIdeas),
-        typeof(OverCharge),
+        // typeof(OverCharge), ~ not the best fit for Ruhig and I have other cards I want to add ~ Havmir
         // typeof(FiftyFifty), ~ scrapped for being unbalenced ~ Havmir
         typeof(Stall),
         typeof(RuhigGift),
         typeof(HardNuetralReset),
-        typeof(Fix),
+        typeof(RepairGambit),
+       // typeof(PainfulMemory), removed for being a bad trade for most people and not going to be good for almost any build out there. ~ 09/07/2025 Havmir
+        typeof(PowerUpShot),
+        typeof(FinishingBlow)
     ];
-    private static List<Type> RuhigRareCardTypes = [
+    private static List<Type> _ruhigRareCardTypes = [
         // typeof(ComboSetUp), ~ scraped for lack of appeal ~ Havmir
         typeof(RuhigsSoulShot),
-        typeof(Support),
+        //typeof(Support), removed for being a bad trade for most people and not going to be good for almost any build out there. ~ 09/07/2025 Havmir
         // typeof(RushDown), ~ scraped per many people's request - Havmir
         typeof(RuhigsChallenge),
         // typeof(RuhigsAura), ~ tried and felt bad when it didn't line up ... so it was scraped ~ Havmir
-        typeof(RepairGambit),
         // typeof(RuhigsCycleMaster),
         typeof(ExpandHull),
+        // typeof(RepairHullWithCards) ~ the memeist of cards ~ Havmir
+        typeof(CardCopier),
+        typeof(TrueGrit)
 
     ];
-    private static List<Type> RuhigSpecialCardTypes = [
+    private static List<Type> _ruhigSpecialCardTypes = [
         typeof(NeedForSpeed),
         typeof(DraconicScales),
         typeof(Zoning),
         typeof(DraconicShards),
         typeof(PaitenceWrath),
-        typeof(DraconicPower),
+        typeof(DraconicPower)
     ];
-    private static IEnumerable<Type> RuhigCardTypes =
-        RuhigCommonCardTypes
-            .Concat(RuhigUncommonCardTypes)
-            .Concat(RuhigRareCardTypes)
-            .Concat(RuhigSpecialCardTypes);
+    private static IEnumerable<Type> _ruhigCardTypes =
+        _ruhigCommonCardTypes
+            .Concat(_ruhigUncommonCardTypes)
+            .Concat(_ruhigRareCardTypes)
+            .Concat(_ruhigSpecialCardTypes);
 
-    private static List<Type> RuhigCommonArtifacts = [
+    private static List<Type> _ruhigCommonArtifacts = [
         typeof(HullAddOn),
         typeof(RuhigsRepairKit),
         // typeof(HullBlink), - functional, but scraped for sound being too annoying ~ Havmir
+        typeof(RuhigAmulet),
+        typeof(HullGraft),
+        typeof(HealthPotion)
+    ];
+    private static List<Type> _ruhigBossArtifacts = [
+        typeof(HullArtifacts),
         typeof(HeavyHull)
     ];
-    private static List<Type> RuhigBossArtifacts = [
-        typeof(HullArtifacts),
-        typeof(HullGraft)
-    ];
-    private static IEnumerable<Type> RuhigArtifactTypes =
-        RuhigCommonArtifacts
-            .Concat(RuhigBossArtifacts);
+    private static IEnumerable<Type> _ruhigArtifactTypes =
+        _ruhigCommonArtifacts
+            .Concat(_ruhigBossArtifacts);
 
-    private static IEnumerable<Type> AllRegisterableTypes =
-        RuhigCardTypes
-            .Concat(RuhigArtifactTypes);
+    private static IEnumerable<Type> _allRegisterableTypes =
+        _ruhigCardTypes
+            .Concat(_ruhigArtifactTypes);
 
     public ModEntry(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger) : base(package, helper, logger)
     {
+        ModDialogueInited = false; // 662
+        UniqueName = package.Manifest.UniqueName;
+        
         Instance = this;
         Harmony = new Harmony("havmir.RuhigMod");
         
@@ -122,7 +180,181 @@ internal class ModEntry : SimpleMod
             Name = AnyLocalizations.Bind(["character", "name"]).Localize
         });
         
-        foreach (var type in AllRegisterableTypes)
+        _ = new RuhigSupportStatusesManager();
+        
+        var draconicPowericon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/DraconicPower.png"));
+        RuhigSupportStatusesManager.DraconicPower = helper.Content.Statuses.RegisterStatus("DraconicPower", new StatusConfiguration
+        {
+            Definition = new StatusDef
+            {
+                isGood = true,
+                color = new Color("4242a7"),
+                icon = draconicPowericon.Sprite
+            },
+            Name = AnyLocalizations.Bind(["status", "DraconicPower", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "DraconicPower", "desc"]).Localize
+        });
+        AStatusRuhigSupport.DraconicPower = draconicPowericon.Sprite;
+
+        Console.WriteLine("hi");
+        
+        var draconicScalesicon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/DraconicScales.png"));
+        RuhigSupportStatusesManager.DraconicScales = helper.Content.Statuses.RegisterStatus("DraconicScales", new StatusConfiguration
+        {
+            Definition = new StatusDef
+            {
+                isGood = true,
+                color = new Color("4242a7"),
+                icon = draconicScalesicon.Sprite
+            },
+            Name = AnyLocalizations.Bind(["status", "DraconicScales", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "DraconicScales", "desc"]).Localize
+        });
+        AStatusRuhigSupport.DraconicScales = draconicScalesicon.Sprite;
+        
+        var draconicScalesBicon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/DraconicScalesB.png"));
+        RuhigSupportStatusesManager.DraconicScalesB = helper.Content.Statuses.RegisterStatus("DraconicScalesB", new StatusConfiguration
+        {
+            Definition = new StatusDef
+            {
+                isGood = true,
+                color = new Color("4242a7"),
+                icon = draconicScalesBicon.Sprite
+            },
+            Name = AnyLocalizations.Bind(["status", "DraconicScalesB", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "DraconicScalesB", "desc"]).Localize
+        });
+        AStatusRuhigSupport.DraconicScalesB = draconicScalesBicon.Sprite;
+        
+        var draconicShardsicon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/DraconicShards.png"));
+        RuhigSupportStatusesManager.DraconicShards = helper.Content.Statuses.RegisterStatus("DraconicShards", new StatusConfiguration
+        {
+            Definition = new StatusDef
+            {
+                isGood = true,
+                color = new Color("4242a7"),
+                icon = draconicShardsicon.Sprite
+            },
+            Name = AnyLocalizations.Bind(["status", "DraconicShards", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "DraconicShards", "desc"]).Localize
+        });
+        AStatusRuhigSupport.DraconicShards = draconicShardsicon.Sprite;
+        
+        var draconicShardsBicon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/DraconicShardsB.png"));
+        RuhigSupportStatusesManager.DraconicShardsB = helper.Content.Statuses.RegisterStatus("DraconicShardsB", new StatusConfiguration
+        {
+            Definition = new StatusDef
+            {
+                isGood = true,
+                color = new Color("4242a7"),
+                icon = draconicShardsBicon.Sprite
+            },
+            Name = AnyLocalizations.Bind(["status", "DraconicShardsB", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "DraconicShardsB", "desc"]).Localize
+        });
+        AStatusRuhigSupport.DraconicShardsB = draconicShardsBicon.Sprite;
+        
+        var needForSpeedicon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/NeedForSpeed.png"));
+        RuhigSupportStatusesManager.NeedForSpeed = helper.Content.Statuses.RegisterStatus("NeedForSpeed", new StatusConfiguration
+        {
+            Definition = new StatusDef
+            {
+                isGood = true,
+                color = new Color("4242a7"),
+                icon = needForSpeedicon.Sprite
+            },
+            Name = AnyLocalizations.Bind(["status", "NeedForSpeed", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "NeedForSpeed", "desc"]).Localize
+        });
+        AStatusRuhigSupport.NeedForSpeed = needForSpeedicon.Sprite;
+        
+        var paitenceicon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/Paitence.png"));
+        RuhigSupportStatusesManager.Paitence = helper.Content.Statuses.RegisterStatus("Paitence", new StatusConfiguration
+        {
+            Definition = new StatusDef
+            {
+                isGood = true,
+                color = new Color("4242a7"),
+                icon = paitenceicon.Sprite
+            },
+            Name = AnyLocalizations.Bind(["status", "Paitence", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "Paitence", "desc"]).Localize
+        });
+        AStatusRuhigSupport.Paitence = paitenceicon.Sprite;
+        
+        var wrathicon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/Wrath.png"));
+        RuhigSupportStatusesManager.Wrath = helper.Content.Statuses.RegisterStatus("Wrath", new StatusConfiguration
+        {
+            Definition = new StatusDef
+            {
+                isGood = true,
+                color = new Color("4242a7"),
+                icon = wrathicon.Sprite
+            },
+            Name = AnyLocalizations.Bind(["status", "Wrath", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "Wrath", "desc"]).Localize
+        });
+        AStatusRuhigSupport.Wrath = wrathicon.Sprite;
+        
+        var zoningicon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/Zoning.png"));
+        RuhigSupportStatusesManager.Zoning = helper.Content.Statuses.RegisterStatus("Zoning", new StatusConfiguration
+        {
+            Definition = new StatusDef
+            {
+                isGood = true,
+                color = new Color("4242a7"),
+                icon = zoningicon.Sprite
+            },
+            Name = AnyLocalizations.Bind(["status", "Zoning", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "Zoning", "desc"]).Localize
+        });
+        AStatusRuhigSupport.Zoning = zoningicon.Sprite;
+        
+        var zoningAicon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/ZoningA.png"));
+        RuhigSupportStatusesManager.ZoningA = helper.Content.Statuses.RegisterStatus("ZoningA", new StatusConfiguration
+        {
+            Definition = new StatusDef
+            {
+                isGood = true,
+                color = new Color("4242a7"),
+                icon = zoningAicon.Sprite
+            },
+            Name = AnyLocalizations.Bind(["status", "ZoningA", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "ZoningA", "desc"]).Localize
+        });
+        AStatusRuhigSupport.ZoningA = zoningAicon.Sprite;
+        
+        var zoningBicon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/ZoningB.png"));
+        RuhigSupportStatusesManager.ZoningB = helper.Content.Statuses.RegisterStatus("ZoningB", new StatusConfiguration
+        {
+            Definition = new StatusDef
+            {
+                isGood = true,
+                color = new Color("4242a7"),
+                icon = zoningBicon.Sprite
+            },
+            Name = AnyLocalizations.Bind(["status", "ZoningB", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "ZoningB", "desc"]).Localize
+        });
+        AStatusRuhigSupport.ZoningB = zoningicon.Sprite;
+        
+        var trueGriticon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/TrueGrit.png"));
+        RuhigSupportStatusesManager.TrueGrit = helper.Content.Statuses.RegisterStatus("TrueGrit", new StatusConfiguration
+        {
+            Definition = new StatusDef
+            {
+                isGood = true,
+                color = new Color("68a9c4"),
+                icon = trueGriticon.Sprite
+            },
+            Name = AnyLocalizations.Bind(["status", "TrueGrit", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "TrueGrit", "desc"]).Localize
+        });
+        AStatusRuhigSupport.TrueGrit = trueGriticon.Sprite;
+        
+        
+        
+        foreach (var type in _allRegisterableTypes)
             AccessTools.DeclaredMethod(type, nameof(IRegisterable.Register))?.Invoke(null, [package, helper]);
         
         RegisterAnimation(package, "neutral", "assets/Animation/SemiFancyRuhigNeutral", 4);
@@ -152,23 +384,51 @@ internal class ModEntry : SimpleMod
             {
                 cards = [
                     new RuhigShot(),
-                    new DeepBreath()
+                    new DisposableHull()
                 ],
             },
-            Description = AnyLocalizations.Bind(["character", "desc"]).Localize
+            Description = AnyLocalizations.Bind(["character", "desc"]).Localize,
+            ExeCardType = typeof(ColorlessRuhigSummon),
+            SoloStarters = new StarterDeck
+            {
+                cards = [
+                    new SwordShot(),
+                    new RuhigShot(),
+                    new Fix(),
+                    new Meditation(),
+                    new DodgeColorless(),
+                    new CannonColorless()
+                ]
+            }
         });
         
-        _ = new HullLostManager(); // exists, just for the Ruhig's Challenge Card
+        _ = new HullLostManager();
         _ = new ShuffleManager();
+
+        Dialogue.Dialogue.Inject();
         
-        RuhigsAdaptability.RuhigsAdaptabilitySprite = RegisterSprite(package, "assets/RuhigsAdaptabilitySprite.png").Sprite;
-        SelfDestruct.SelfDestructSprite = RegisterSprite(package, "assets/SelfDestructSprite.png").Sprite;
-        RuhigSupport.RuhigSupportSprite = RegisterSprite(package, "assets/RuhigSupportIcon.png").Sprite;
-        RuhigSupportA.RuhigSupportASprite = RegisterSprite(package, "assets/RuhigSupportIconA.png").Sprite;
-        RuhigSupportB.RuhigSupportBSprite = RegisterSprite(package, "assets/RuhigSupportIconB.png").Sprite;
-        InvisableRuhigSupport.InvisableRuhigSupportSprite = RegisterSprite(package, "assets/blank.png").Sprite;
-        RuhigSupportDouble.RuhigSupportDoubleSprite = RegisterSprite(package, "assets/RuhigSupportIconDouble.png").Sprite;
-        
+        var ruhigsAdaptavilitySprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/RuhigsAdaptabilitySprite.png")).Sprite;
+        var selfDestructSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/SelfDestructSprite.png")).Sprite;
+        var ruhigSupportIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/RuhigSupportIcon.png")).Sprite;
+        var ruhigSupportIconA = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/RuhigSupportIconA.png")).Sprite;
+        var ruhigSupportIconB = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/RuhigSupportIconB.png")).Sprite;
+        var blank = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/blank.png")).Sprite;
+        var ruhigSupportIconDouble = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/RuhigSupportIconDouble.png")).Sprite;
+        var endTurnIconFromCobaltCore = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/endTurnIconFromCobaltCore.png")).Sprite;
+        var hurt = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/hurt.png")).Sprite;
+
+        RuhigsAdaptability.RuhigsAdaptabilitySprite = ruhigsAdaptavilitySprite;
+        SelfDestruct.SelfDestructSprite = selfDestructSprite;
+        RuhigSupport.RuhigSupportSprite = ruhigSupportIcon;
+        RuhigSupportA.RuhigSupportASprite = ruhigSupportIconA;
+        RuhigSupportB.RuhigSupportBSprite = ruhigSupportIconB;
+        InvisableRuhigSupport.InvisableRuhigSupportSprite = blank;
+        RuhigSupportDouble.RuhigSupportDoubleSprite = ruhigSupportIconDouble;
+        InvisableEndTurn.InvisableRuhigSupportSprite = blank;
+        FakeEndTurn.endTurnIconFromCobaltCore = endTurnIconFromCobaltCore;
+        RepairTheHullWithCards.InvisableRuhigSupportSprite = endTurnIconFromCobaltCore;
+        RepairTheHullWithCards.endTurnIconFromCobaltCore = endTurnIconFromCobaltCore;
+        PaperCutAction.Hurt = hurt;
     }
     
     public static ISpriteEntry RegisterSprite(IPluginPackage<IModManifest> package, string dir)
