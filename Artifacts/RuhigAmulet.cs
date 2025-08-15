@@ -28,7 +28,7 @@ public class RuhigAmulet : Artifact, IRegisterable
             },
             Name = ModEntry.Instance.AnyLocalizations.Bind(["artifact", "MeldHull", "name"]).Localize,
             Description = ModEntry.Instance.AnyLocalizations.Bind(["artifact", "MeldHull", "desc"]).Localize,
-            Sprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/Artifact/RuhigAmuletPre.png")).Sprite
+            Sprite = MeldHullOnSprite
         });
     }
 
