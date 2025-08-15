@@ -22,17 +22,10 @@ public class HullLostManager
     
     public void OnPlayerLoseHull(Combat combat, int amount)
     {
-        if (combat.isPlayerTurn == true)
-        {
-            int hullLostNumber;
-            hullLostNumber = ModEntry.Instance.Helper.ModData.GetModDataOrDefault(combat, "hullLostNumber", 0);
-            hullLostNumber += amount;
-            ModEntry.Instance.Helper.ModData.SetModData(combat, "hullLostNumber", hullLostNumber);
-        }
-        if (combat.isPlayerTurn == false)
-        {
-            Console.WriteLine($"[Ruhig Mod] Hull Lost Manager detected: {amount} during the enemies's turn.");
-        }
+        int hullLostNumber;
+        hullLostNumber = ModEntry.Instance.Helper.ModData.GetModDataOrDefault(combat, "hullLostNumber", 0);
+        hullLostNumber += amount;
+        ModEntry.Instance.Helper.ModData.SetModData(combat, "hullLostNumber", hullLostNumber);
     }
 
     public HullLostManager()

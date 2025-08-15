@@ -3,51 +3,105 @@
         "name": "Ruhig",
         "desc": "<c=6868b9>Ruhig</c> \nYour ... wait, who is this person? Ruhig specializes in supporting their teammates and utilizing the hull as its own reasource. Try not to self destruct please."
     },
+    "status": {
+        "DraconicPower": {
+            "name": "DRACONINC POWER",
+            "desc": "When you lose hull, gain 2 <c=status>overdrive</c> <c=downside>and reduce this status amount by 1.</c>"
+        },
+        "DraconicScales": {
+            "name": "DRACONINC SCALES",
+            "desc": "When you lose hull, Gain 2 <c=status>max shield</c> & 1 <c=status>shield</c> <c=downside>and reduce this status amount by 1.</c>"
+        },
+        "DraconicScalesB": {
+            "name": "DRACONINC SCALES B",
+            "desc": "When you lose hull, Gain 3 <c=status>max shield</c> <c=downside>and reduce this status amount by 1.</c>"
+        },
+        "DraconicShards": {
+            "name": "DRACONIC SHARDS",
+            "desc": "When you lose hull, Gain 3 <c=status>max shards</c> & 3 <c=status>shards</c> <c=downside>and reduce this status amount by 1.</c>"
+        },
+        "DraconicShardsB": {
+            "name": "DRACONIC SHARDS B",
+            "desc": "When you lose hull, Gain 3 <c=status>max shield</c> & 99 <c=status>max shards</c> <c=downside>and reduce this status amount by 1.</c>"
+        },
+        "NeedForSpeed": {
+            "name": "NEED FOR SPEED",
+            "desc": "When you lose hull, Gain 2 <c=status>evade</c> <c=downside>and reduce this status amount by 1.</c>"
+        },
+        "Paitence": {
+            "name": "PAITENCE",
+            "desc": "When you lose hull, Gain 3 <c=status>serenity</c> <c=downside>and reduce this status amount by 1.</c>"
+        },
+        "Wrath": {
+            "name": "WRATH",
+            "desc": "When you lose hull, Gain <c=keyword>{0}</c> <c=status>heat</c> per <c=status>heat</c> you have <c=downside>and remove this status.</c>"
+        },
+        "Zoning": {
+            "name": "ZONING",
+            "desc": "When you lose hull, Gain 2 <c=status>droneshift</c> then launch an <c=midrow>attack drone</c> followed by an <c=midrow>astroid</c> to the left & right of the <c=midrow>attack drone</c> <c=downside>and reduce this status amount by 1.</c>"
+        },
+        "ZoningA": {
+            "name": "ZONING A",
+            "desc": "When you lose hull, Gain 2 <c=status>droneshift</c> then launch a <c=midrow>attack drone MK II</c> followed by 2 <c=midrow>astroids</c> to both the left & right of the <c=midrow>attack drone</c> <c=downside>and reduce this status amount by 1.</c>"
+        },
+        "ZoningB": {
+            "name": "ZONING B",
+            "desc": "When you lose hull, Gain 2 <c=status>droneshift</c> then launch an <c=midrow>attack drone</c> followed by 2 <c=midrow>spacemines</c> to both the left & right of the <c=midrow>attack drone</c> <c=downside>and reduce this status amount by 1.</c>"
+        },
+        "TrueGrit": {
+            "name": "TRUE GRIT",
+            "desc": "When you lose hull, draw 2 cards and gain 1 <c=energy>energy</c> per <c=status>true grit</c> you have."
+        }
+    },
     "action": {
         "AGainPaitenceWrath": {
             "title": "Gain Paitence/Wrath",
-            "draw": "Add Paitence/Wrath to your deck & remove this card from your deck"
+            "draw": "Add Paitence/Wrath to your deck & remove this card from your deck."
         },
         "RuhigsAdaptability": {
             "title": "Ruhig's Adaptability",
-            "desc": "You may flip this card to exhaust from play for free"
+            "desc": "You may flip this card to exhaust from play for free."
         },
         "SelfDestruct": {
             "title": "Single-Use",
-            "desc": "This card will remove itself from your deck when this option is selected"
+            "desc": "This card will remove itself from your deck when this option is selected."
         },    
         "RushDownANew": {
             "title": "Damage Calculation:",
-            "desc": "Take the add your evade and heat then divide by 2",
-            "draw": "Take the sum of your evade and heat then divide by 2",
-            "discard": "Take the sum of your evade and heat then divide by 2"
+            "desc": "Take the add your evade and heat then divide by 2.",
+            "draw": "Take the sum of your evade and heat then divide by 2.",
+            "discard": "Take the sum of your evade and heat then divide by 2."
         },
         "RuhigSupport": {
             "title": "Ruhig Support",
-            "desc": "Gain 1 of 6 support cards"
+            "desc": "Gain 1 of 6 support cards."
         },
         "RuhigSupportA": {
             "title": "Ruhig Support A",
-            "desc": "Gain 1 of 6 support cards, but they have the A upgrade"
+            "desc": "Gain 1 of 6 support cards, but they have the A upgrade."
         },
         "RuhigSupportB": {
             "title": "Ruhig Support B",
-            "desc": "Gain 1 of 6 support cards, but they have the B upgrade"
+            "desc": "Gain 1 of 6 support cards, but they have the B upgrade."
         },
         "ADraconicPowerCalc": {
             "title": "Damage Calculation:",
-            "desc": "Divide your shield by 5 then round down",
-            "draw": "Divide your shield by 5 then round down",
-            "discard": "Divide your shield by 5 then round down",
-            "CalcSpr": "Divide your shield by 5 then round down"
+            "desc": "Divide your shield by 5 then round down.",
+            "draw": "Divide your shield by 5 then round down.",
+            "discard": "Divide your shield by 5 then round down.",
+            "CalcSpr": "Divide your shield by 5 then round down."
         },
         "RuhigSupportDouble": {
             "title": "Double Ruhig Support",
-            "desc": "Gain 1 of 6 support cards, then gain another 1 of 6 support cards"
+            "desc": "Gain 1 of 6 support cards, then gain another 1 of 6 support cards. "
         },
         "FakeEndTurn": {
             "title": "END TURN",
             "desc": "Instantly ends your turn."
+        },
+        "hurt": {
+            "title": "HULL DAMAGE TRIGGER",
+            "desc": "Trigger anything that requires you to lose 1 hull."
         }
     },
     "card": {
@@ -148,7 +202,7 @@
         },
         "RuhigsChallenge": {
             "name": "Ruhig's Challenge",
-            "descNone": "<c=heal>Heal: 3</c>. Attack: <c=damage>{0}</c>. <c=downside>Must lose <c=keyword>{1}</c> hull this turn to play.</c>{2}",
+            "descNone": "<c=heal>Heal: {3}</c>. Attack: <c=damage>{0}</c>. <c=downside>Must lose <c=keyword>{1}</c> hull this turn to play.</c>{2}",
             "descA": "<c=heal>Heal: 2</c>. Attack: <c=damage>{0}</c>. <c=downside>Must lose <c=keyword>{1}</c> hull this turn to play.</c>{2}",
             "descB": "<c=heal>Heal: 4</c>. Attack: <c=damage>{0}</c>. <c=downside>Must lose <c=keyword>{1}</c> hull this turn to play.</c>{2}"
         },
@@ -157,9 +211,9 @@
         },
         "RuhigCycleMaster": {
             "name": "Ruhig: Cycle Master",
-            "descNone": "Once per turn, gain 1 stack when you shuffle. Attack = stacks (<c=damage>{0}</c>)",
-            "descA": "Once per turn, gain 1 stack when you shuffle. Attack = stacks (<c=damage>{0}</c>)",
-            "descB": "Twice per turn, gain 1 stack when you shuffle. Attack = stacks (<c=damage>{0}</c>)"
+            "descNone": "Once per turn, gain 1 stack when you shuffle. Attack = stacks. (<c=damage>{0}</c>)",
+            "descA": "Once per turn, gain 1 stack when you shuffle. Attack = stacks. (<c=damage>{0}</c>)",
+            "descB": "Twice per turn, gain 1 stack when you shuffle. Attack = stacks.(<c=damage>{0}</c>)"
         },
         "ArtifactTest" : {
             "name": "Artifact Test"
@@ -175,36 +229,52 @@
         },
         "PowerUpShot": {
             "name": "Power Up Shot"
+        },
+        "SwordShot": {
+            "name": "Sword Shot"
+        },
+        "TrueGrit": {
+            "name": "True Grit"
+        },
+        "PaperCut": {
+            "name": "Paper Cut"
+        },
+        "FinishingBlow": {
+            "name": "Finishing Blow"
         }
     },
     "artifact": {
         "HullAddOn": {
             "name": "HULL ADD ON",
-            "desc": "Permanently gain +5 max hull and heal 2 hull"
+            "desc": "Permanently gain +5 max hull and heal 2 hull."
         },
         "RuhigsRepairKit": {
             "name": "RUHIG'S REPAIR KIT",
-            "desc": "Gain 50% extra healing when you heal"
+            "desc": "Gain 50% extra healing when you heal, rounded down."
         },
         "HullBlink": {
             "name": "Hull Blink",
-            "desc": "Literally imagine you get the bruise effect for free at the start of each of your turns (just in reverse order)"
+            "desc": "Literally imagine you get the bruise effect for free at the start of each of your turns (just in reverse order)."
         },
         "HeavyHull": {
             "name": "HEAVY HULL",
-            "desc": "Start with 2 Engine Stall Each Turn. Gain 10 max hull & 5 max shield"
+            "desc": "Start with 2 Engine Stall Each Turn. Gain 15 max hull & 5 max shield. Heal 5."
         },
         "HullArtifacts": {
             "name": "HULL ARTIFACTS",
-            "desc": "Sacrifice 25% of your max hull for 2 boss artifacts"
+            "desc": "Sacrifice 25% of your max hull for 2 boss artifacts."
         },
         "HullGraft": {
             "name": "HULL GRAFT",
-            "desc": "Gain 1 max hull at the end of each combat"
+            "desc": "Gain 1 max hull at the end of each combat."
         },
         "MeldHull": {
             "name": "MELD HULL",
-            "desc": "Once per combat, heal 1 when you have lost 2 hull during one of your turns"
+            "desc": "Once per combat, heal 1 when you have lost 2 hull during one of your turns."
+        },
+        "HealthPotion": {
+            "name": "HEALTH POTION",
+            "desc": "Heal half of your ship's hull rounded down."
         }
     }
 }
