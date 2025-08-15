@@ -17,8 +17,6 @@ public class InvisableRuhigSupport : CardAction
 
     public override Route? BeginWithRoute(G g, State s, Combat c)
     {
-        
-        
         if (IsTempQuestionMark == false && ExtraHullCard == false)
         {
             timer = 0.0;
@@ -90,7 +88,6 @@ public class InvisableRuhigSupport : CardAction
 
     public override List<Tooltip> GetTooltips(State s)
     {
-        var side = "InvisableRuhigSupport";
         return
         [
             /*

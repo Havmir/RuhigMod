@@ -9,7 +9,6 @@ using System.Collections.Generic;
 
 public class FakeEndTurn : CardAction
 {
-    private int Count;
     public static Spr endTurnIconFromCobaltCore;
     
     public override void Begin(G g, State s, Combat c)

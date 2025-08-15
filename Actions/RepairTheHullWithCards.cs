@@ -10,7 +10,6 @@ using System.Collections.Generic;
 
 public class RepairTheHullWithCards : CardAction
 {
-    private int Count;
     public static Spr InvisableRuhigSupportSprite;
     public static Spr endTurnIconFromCobaltCore;
     

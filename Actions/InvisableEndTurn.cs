@@ -9,7 +9,6 @@ using System.Collections.Generic;
 
 public class InvisableEndTurn : CardAction
 {
-    private int Count;
     public static Spr InvisableRuhigSupportSprite;
     
     public override void Begin(G g, State s, Combat c)
@@ -39,7 +38,6 @@ public class InvisableEndTurn : CardAction
 
     public override List<Tooltip> GetTooltips(State s)
     {
-        var side = "FakeEndTurn";
         return
         [
             //new GlossaryTooltip($"FakeEndTurn::{side}")

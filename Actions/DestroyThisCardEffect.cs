@@ -10,7 +10,6 @@ using System.Collections.Generic;
 
 public class DestroyThisCardEffect : CardAction
 {
-    private int Count;
     public static Spr InvisableRuhigSupportSprite;
     public int uuid;
     public static Spr endTurnIconFromCobaltCore;
